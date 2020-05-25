@@ -38,8 +38,17 @@ typedef struct s_map
     int     height
 }               t_map;
 
-int     check_name_file(int ac, char **av);
-int     check_cub(char *cub, t_conf *conf, t_map *map);
-void	check_win(int max_x, int max_y, t_data *data);
+int         check_name_file(int ac, char **av);
+
+int         check_cub(char *cub, t_conf *conf, t_map *map);
+int         check_conf(int fd, char **line, t_conf *conf);
+int         check_map(int fd, char **line, t_map map);
+int         check_line(char *line, t_conf *conf, int *all_c);
+int         text(char **sep, char *text, int *all_c, int i);
+int         res(char **sep, int *resol, int *all_c, int i);
+int         color(char **sep, int *color, int *all_c, int i);
+
+void	    check_win(int max_x, int max_y, t_data *data);
+
 
 #endif

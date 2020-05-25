@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 16:10:35 by cramdani          #+#    #+#             */
-/*   Updated: 2020/05/25 18:52:59 by cramdani         ###   ########.fr       */
+/*   Created: 2020/05/18 14:40:05 by cramdani          #+#    #+#             */
+/*   Updated: 2020/05/25 19:12:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_isdigit(int c)
+int         check_pre(int fd, char **line)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+    int ret;
+    t_text *text;
 
-int  ft_isnum(char *str)
-{
-    while (*str)
-    {
-        if (ft_isdigit(*str) == 0)
-            return (0);
-        str++;
-    }
-    return (1);
+    init(text);
+    while (((ret = get_next_line(fd, line)) > 0) && all_good(*text) != 1)
+        check_line(*line, text);
+    if (all_good(*text) != 1)
+        write(1, "Error\nTexture is missing", 25);
+    return (all_good(*text));
 }
