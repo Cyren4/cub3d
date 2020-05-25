@@ -6,31 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 02:38:38 by cramdani          #+#    #+#             */
-/*   Updated: 2020/05/18 14:41:11 by cramdani         ###   ########.fr       */
+/*   Updated: 2020/05/23 19:07:58 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	check_win(int max_x, int max_y, t_data *data)
-{
-	int min_x;
-	int min_y;
-
-	min_x = 100;
-	min_y = 70;
-	if (data->win_size_x > max_x)
-		data->win_size_x = max_x;
-	else if (data->win_size_x < min_x)
-		data->win_size_x = min_x;
-	if (data->win_size_y > max_y)
-		data->win_size_y = max_y;
-	else if (data->win_size_y < min_y)
-		data->win_size_y = min_y;
-}
-
-
-
 
 void    error_message(int nb)
 {

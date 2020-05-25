@@ -6,11 +6,28 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 14:40:11 by cramdani          #+#    #+#             */
-/*   Updated: 2020/05/18 14:41:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2020/05/24 10:44:15 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_win(int max_x, int max_y, t_data *data)
+{
+	int min_x;
+	int min_y;
+
+	min_x = 100;
+	min_y = 70;
+	if (data->win_size_x > max_x)
+		data->win_size_x = max_x;
+	else if (data->win_size_x < min_x)
+		data->win_size_x = min_x;
+	if (data->win_size_y > max_y)
+		data->win_size_y = max_y;
+	else if (data->win_size_y < min_y)
+		data->win_size_y = min_y;
+}
 
 int start_win(void)
 {
@@ -26,18 +43,4 @@ int start_win(void)
 		return (EXIT_FAILURE);
 	mlx_loop(data->mlx_ptr);
 	return (EXIT_SUCCESS);
-}
-
-int main(int ac, char **av)
-{
-	if (ac < 2 || ac > 3)
-		write(1, "Erreur\n Arguments invalides", 28);
-	if (check_map(av[1]) == 1)
-	{
-		cub3d(av[1]);
-		if (ft_strcmp(av[2], "--save") == 0)
-			screen_shot();
-	}	
-	else
-		return(-1);
 }
