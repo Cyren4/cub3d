@@ -6,75 +6,127 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 14:40:05 by cramdani          #+#    #+#             */
-/*   Updated: 2020/05/25 20:06:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2020/05/31 11:39:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void     init(int *conf)
+static void     show(t_conf *conf)
+{
+    int i = -1;
+
+    printf("res : |%d| |%d|\n", conf->resol[0], conf->resol[1]);
+    while (++i < 4)
+    {
+        printf("|%d| : |%s|\n", i, conf->text[i]);
+    }
+    printf("floor : |%d| |%d| |%d|\n", conf->col[0][0], conf->col[0][1], conf->col[0][2]);
+    printf("ceiling : |%d| |%d| |%d|\n", conf->col[1][0], conf->col[1][1], conf->col[1][2]);
+}
+
+static void     init(int *check, t_conf *conf)
 {
     int i;
     
-    i = 0;
-    while (i < 8)
+    i = -1;
+    while (++i < 8)
     {
-        conf[i] = 0;
-        ++i;
+        check[i] = 0;
+        if (i < 5)
+            conf->text[i] = NULL;
     }
-    conf[i] = NULL;
+    i = -1;
+    while (++i < 3)
+    {
+        conf->col[0][i] = 0;
+        conf->col[1][i] = 0;
+        if (i < 2)
+            conf->resol[i] = 0;
+    }
 }
 
-static int  which(char **sep, t_conf *conf, int *all_c)
+static void     clean(char **sep)
 {
-    if (ft_strcmp(*sep, "SO") == 0)
-        return (text(sep, conf->SO, all_c, 1));
-    else if (ft_strcmp(*sep, "WE") == 0)
-        return (text(sep, conf->WE, all_c, 2));
-    else if (ft_strcmp(*sep, "EA") == 0)
-        return (text(sep, conf->EA, all_c, 3));
-    else if (ft_strcmp(*sep, "NO") == 0)
-        return (text(sep, conf->NO, all_c, 4));
-    else if (ft_strcmp(*sep, "R") == 0)
-        return (res(sep, conf->resol, all_c, 0));
-    else if (ft_strcmp(*sep, "S") == 0)
-        return (text(sep, conf->split, all_c, 5));
-    else if (ft_strcmp(*sep, "F") == 0)
-        return (color(sep, conf->F, *all_c, 6));
-    else if (ft_strcmp(*sep, "C") == 0)
-        return (color(sep, conf->C, all_c, 7));
-    else
-        return (clear(sep, -1));
+    int i;
+
+    i = 0;
+    while (sep[i] != NULL)
+    {
+        free(sep[i]);
+        i++;
+    }
+    free(sep);
 }
+
+static int  which(char **sep, char *line, t_conf *conf, int *all_c)
+{
+    int ret;
+
+    if (ft_strcmp(*sep, "SO") == 0)
+        ret = text(sep, conf, all_c, 1);
+    else if (ft_strcmp(*sep, "WE") == 0)
+        ret = text(sep, conf, all_c, 2);
+    else if (ft_strcmp(*sep, "EA") == 0)
+        ret = text(sep, conf, all_c, 3);
+    else if (ft_strcmp(*sep, "NO") == 0)
+        ret = text(sep, conf, all_c, 4);
+    else if (ft_strcmp(*sep, "R") == 0)
+        ret = res(sep, conf, all_c, 0);
+    else if (ft_strcmp(*sep, "S") == 0)
+        ret = text(sep, conf, all_c, 5);
+    else if (ft_strcmp(*sep, "F") == 0)
+        ret = color(line, conf, all_c, 6);
+    else if (ft_strcmp(*sep, "C") == 0)
+        ret = color(line, conf, all_c, 7);
+    else
+        ret = -1;
+    return (ret);
+}
+
 
 int     check_line(char *line, t_conf *conf, int *all_c)
 {
     char **sep;
+    int ret;
 
-    if (line == "")
-        return (0);
+    if (ft_strcmp(line, "") == 0)
+        ret = 0;
     else
     {
         if ((sep = ft_split(line, ' ')) == NULL)
-            return (clear(sep, -1));
+            ret = -1;
         else
-            return (which(sep, conf, all_c));
+        {
+            ret = which(sep,line , conf, all_c);
+            clean(sep);
+        }
     }
+    return (ret);
 }
 
-int     check_conf(int fd, char **line, t_conf *conf)
+int     check_conf(int fd, char **line, t_conf *conf, t_map *map)
 {
-    int *check;
+    int check[8];
     int ret;
     
-    init(check);
-    while ((ret = get_next_line(fd, line)) != 0 && all_good(check) == 0)
+    init(check, conf);
+    while ((ret = get_next_line(fd, line)) == 1 && all_good(check) != 1 )
     {
-        if ((check_line(*line, conf, check) == -1) || (ret == -1))
-            return (-1);
-        free(line);
+        if (ret == -1 || check_line(*line, conf, check) == -1)
+        {
+            free(*line);
+            return (error_message(check));
+        }
+        free(*line);
     }
-    return (0);
+    show(conf);
+    if (all_good(check) != 1)
+        return (error_message(check));
+  //  else if (all_valid(conf, check) != 1)
+    //    return (error_message(check));
+    write(1, "checkmap\n", 10);
+    return (1);
 }
 
 int     check_cub(char *av, t_conf *conf, t_map *map)
@@ -86,48 +138,14 @@ int     check_cub(char *av, t_conf *conf, t_map *map)
     fd = open(av, O_RDONLY);
     if (fd == -1)
         return (-1);
-    if (check_conf(fd, &line, conf) == -1 || check_map(fd, &line, map) == -1)
+    if (check_conf(fd, &line, conf, map) == -1)
         return (-1);
     return (1);
 }
 
 /*
 
-int    get_out(int fd, int ret)
-{
-    close(fd);
-    return(ret);
-}
 
-int         check_conf(int fd, char **line)
-{
-    int check_conf[9];
-    int ret;
-    t_conf *conf;
-
-    init(check_conf);
-    while (((ret = get_next_line(fd, line)) > 0) && all_good(check_conf) != 1)
-    {
-        if (check_line(*line, conf) == -1)
-            return (-1);
-        else if (check_line(*line, conf) == 1)
-            get_conf(*line, conf);
-    }
-    if (all_good(check_conf) != 1)
-        write(1, "Error\nconfig is missing", 24);
-    free(check_conf);
-    return (all_good(check_conf));
-}
-
-typedef struct  s_map
-{
-    char **map;
-    ma
-
-}               t_map;
-
-int     check_line(char *line, t_map *map)
-{}
 
 int     check_map(int fd, char *line)
 {

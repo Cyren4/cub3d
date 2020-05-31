@@ -1,22 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/23 19:03:36 by cramdani          #+#    #+#             */
-/*   Updated: 2020/05/25 15:00:14 by cramdani         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
-
-int    get_out(int fd, int ret)
-{
-    close(fd);
-    return(ret);
-}
 
 int     check_name_file(int ac, char **av)
 {
@@ -42,34 +24,15 @@ int     check_name_file(int ac, char **av)
 
 int		main(int ac, char **av)
 {
-	t_conf  *conf;
-    t_map   *map;
+	t_conf  conf;
+    t_map   map;
 	int	check;
 
 	if ((check = check_name_file(ac, av)) > 0)
 	{
-		if (check_cub(av[1], conf, map) == 1)
-			check == 2 ? screenshot() : cub3d();
-		
+		if (check_cub(av[1], &conf, &map) == 1)
+			write(1, check == 2 ? "screen\n" : "play\n", check == 2 ? 8 : 6);
 	}
+//	system("leaks a.out");
 	return (0);
 }
-
-/*int		fd;
-	int		ret_value;
-	char	*line;
-
-	line = NULL;
-	fd = open(av[1], O_RDONLY);
-	if (ac > 1)
-	if (fd == -1)
-		return (-1);
-	ret_value = 1;
-	while (ret_value == 1)
-	{
-		ret_value = get_next_line(fd, &line);
-		printf("%d |>>| %s\n", ret_value, line);
-		ft_strdel(&line);
-	}
-	close(fd);
-	return (0);*/
