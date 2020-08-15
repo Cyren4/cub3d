@@ -1,9 +1,9 @@
+NAME	:	cub3d.a
 
-NAME	:	
 SRCS	:	main.c
 
-FLAGS	: 
+FLAGS	: -Wall -Werror -Wextra
 
 RM	:	rm
 
-CLEAN	:	${RM}
+CLEAN	:	${RM} 

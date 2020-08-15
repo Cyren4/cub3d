@@ -4,5 +4,5 @@ NO ./path_to_the_north_texture
     C    220,   100,      02
 R 1920 234
 WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+S ./path_to_the_west_texture
+EA ./path_to_the_west_texture
