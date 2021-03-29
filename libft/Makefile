@@ -16,12 +16,13 @@ OBJS	=	${SRCS:.c=.o}
 
 BONUSOBJS	=	${BONUSSRCS:.c=.o}
 
-CC	=	clang
+CC	=	clang -g
 RM	=	rm -f
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 $(NAME):	${OBJS}
-	ar rcs ${NAME} ${OBJS}
+	ar -rc ${NAME} ${OBJS}
+	ranlib $(NAME)
 
 all:	${NAME}
 
@@ -34,7 +35,8 @@ fclean:	clean
 re:	fclean all
 
 bonus:	${BONUSOBJS} ${OBJS}		
-	ar rcs ${NAME} ${OBJS} ${BONUSOBJS}
+	ar -rc ${NAME} ${OBJS} ${BONUSOBJS}
+	ranlib $(NAME)
 
 .PHONY:all clean fclean re bonus
 

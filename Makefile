@@ -1,24 +1,32 @@
-NAME = test
+NAME = Cub3d
 
 SOURCEDIR = ./srcs/
 
-INCLUDES = ./includes/
+INCLUDES_MAC = ./includes/
 
-SRCS = $(MAIN)main.c my_mlx_pixel_put.c\
+
+SRCS = $(MAIN)main.c \
+
 
 OBJS := ${SRCS:c=o}
 
 CC = clang -g $(FLAGS)
 
-FLAGS = -I. -I$(INCLUDES) -Wall -Werror -Wextra -fsanitize=address
 LIBS = ./libft
 
+
+FLAGS = -I. -I$(INCLUDES) -Wall -Werror -Wextra
+
+
 all: $(NAME)
+
 
 $(NAME): $(OBJS) $(INCLUDES)
 	make -C $(LIBS)
 	make -C mlx_linux
-	$(CC) $(OBJS) -L$(LIBS) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBS) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
+
 clean:
 	rm $(OBJS)
 	make clean -C ./libft
