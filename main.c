@@ -77,14 +77,14 @@ int             main(void)
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 		return (MLX_ERROR);
-	data.win = mlx_new_window(data.mlx, 600, 600, "Ouh yeaah");
+	data.win = mlx_new_window(data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Ouh yeaah");
 	if (data.win == NULL)
 	{
 		free(data.mlx);
 		return (MLX_ERROR);
 	}		
 	mlx_loop_hook(data.mlx, &display, &data); 
-	mlx_key_hook(data.win, mlx_hook, &data);
+	mlx_key_hook(data.win, &handle_keypress, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_display(data.mlx_ptr);
 	free (data.mlx);
