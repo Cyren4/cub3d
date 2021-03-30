@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(INCLUDES)
 	make -C $(LIBS)
 	make -C mlx_linux
-	$(CC) $(OBJS) -L$(LIBS) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBS) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o $(NAME)
 
 
 clean:

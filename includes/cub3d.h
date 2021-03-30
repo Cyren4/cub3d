@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Sophie <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2021/03/26 11:27:48 by Sophie           ###   ########.fr       */
+/*   Updated: 2021/03/30 16:27:29 by ldes-cou@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -40,6 +41,6 @@ int 	main(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		handle_keypress(int keysym, t_data *data);
 int		display(t_data *data);
+void	render_background(t_data *data, int color);
 
 #endif
-
