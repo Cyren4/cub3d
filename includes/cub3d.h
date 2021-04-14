@@ -23,24 +23,39 @@
 #include "../mlx_linux/mlx.h"
 #include "../libft/libft.h"
 
-typedef struct  s_data 
-{	
-	void	*image;
+typedef struct s_img
+{
+
+	void	*mlx_img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp; /* bits per pixel */
+	int		line_len;
 	int		endian;
+}				t_img;
+
+typedef struct  s_data 
+{
 	void	*mlx_ptr;
-    void	*mlx_win;
-	void	*mlx;
-	void	*win;
-	int		bullshit;
+    void	*win_ptr;
+	t_img	img;
 }               t_data;
+
+typedef struct s_rect
+{
+	int x;
+	int y;
+	int height;
+	int width;
+	int color;
+}				t_rect;
+
+
 
 int 	main(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	img_pix_put(t_img *img, int x, int y, int color);
 int		handle_keypress(int keysym, t_data *data);
 int		display(t_data *data);
-void	render_background(t_data *data, int color);
+void	render_background(t_img *img, int color);
 
 #endif
