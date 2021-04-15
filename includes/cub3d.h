@@ -23,6 +23,9 @@
 #include "../mlx_linux/mlx.h"
 #include "../libft/libft.h"
 
+#define ERROR "Error/n"
+#endif
+
 typedef struct s_img
 {
 
@@ -37,6 +40,11 @@ typedef struct  s_data
 {
 	void	*mlx_ptr;
     void	*win_ptr;
+	int		i;
+	int		c;
+	int		f;
+	int 	axe_x;
+	int		axe_y;
 	t_img	img;
 }               t_data;
 
@@ -57,5 +65,8 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 int		handle_keypress(int keysym, t_data *data);
 int		display(t_data *data);
 void	render_background(t_img *img, int color);
+void    ft_init_data(t_data *data);
+void	ft_color(char *str, t_data *data);
+int		ft_check_map(char *str, t_data *data);
 
 #endif
