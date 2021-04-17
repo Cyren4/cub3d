@@ -38,6 +38,10 @@ void ft_color(char *str, t_data *data)
     int g;
     int b;
 
+    r = 0;
+    g = 1;
+    b = 2;
+
         while (is_whitespace(str[i])
             i++;
         if (str[i] == 'C')
@@ -64,7 +68,7 @@ int check_color_error(char **rgb)
     return (1);
 }
 
-int convert_color(char *rgb, int r, int g, int b)
+int convert_color(char *rgb, int *r, int *g, int *b)
 {
     /*convertir d'héxadécimal en binaire pour 
     savoir de combien de bits on décale rgb*/
