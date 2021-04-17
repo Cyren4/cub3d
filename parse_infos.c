@@ -2,16 +2,14 @@
 
 void ft_resolution(char *str, t_data *data)
 {
-    if (str[i] == 'R')
-    {
-        while(str[i++] == ' ')/*faire comme le vrai atoi zapper les whitespaces*/
-            if (ft_isdigit(str[i]))
-            {
-                if (data->axe_x == 0)
-                    data->axe_x = ft_atoi(str[i]);
-                else
-                    (data->axe_y = ft_atoi(str[i]));
-            }
+    if (is_whitespace(str[i]))
+        i++;
+    if (ft_isdigit(str[i]))
+        data->axe_x = ft_atoi(str[i]);
+    if (is_whitespace(str[i]))
+        i++;
+    if (ft_isdigit(str[i]))
+        (data->axe_y = ft_atoi(str[i]));
     }/*retourner une erreur si la résolution est égale à 0*/
 }
 

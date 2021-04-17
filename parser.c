@@ -5,40 +5,29 @@ int ft_parser(char *fichier, t_data *data)
 {
     int     ret;
     int     fd;
-    char    *str;
+    char    *line;
 
     /*utiliser get_next_line pour lire les infos du fichier.cub*/
     ret = 1;
     str = NULL;
 
-    if (fd = open(fichier, O_DIRECTORY) != -1
+    if (fd = open(fichier, O_DIRECTORY) != -1)
     {
-        printf("erreur ceci est un dossier");
+        printf("Erreur: ceci est un dossier");
         return (ERROR);
     }
-    if (fd = open(fichier, O_READONLY) == -1;
+    if (fd = open(fichier, O_READONLY) == -1)
     {
         printf("Une erreur est survenue à l'ouverture du fichier");
         return (ERROR);
     }
-    /*si on arrive jusqu'ici c'est qu'il n'y a pas eu d'erreur à l'ouverture*/
-    while (ret != 0)
-    {
-        ret = get_next_line(fd, &str, data);
+    while (get_next_line(fd, &line);
         /*récupérer les infos sur la résolution*/
-        while (str[i++] == ' ')
-        {
-            if (str[i] == 'R')
-                ft_resolution(str, data);
-            if (str[i] == 'C' || str[i] == 'F')
-                ft_color(str, data);
+        while (is_whitespaces(str[i])
+            i++;
+        
         /*ft_check_NSEW*/
         ft_check_map(str, data);
-        /*vérifier les erreurs de parsing
-            -> s'il y a une map
-            -> si elle est fermée de tous les côtés
-            -> récupérer la taille de la map
-            */
     }
     close(fd);
     free(str);
@@ -47,6 +36,10 @@ int ft_parser(char *fichier, t_data *data)
 
 int ft_check_cub(*str, t_data *data)
 {
-    while(str[i++] != )
+    while(str[i] != '.')
+        i++;
+    if (str[i + 1] != 'c'&& str[i + 2] != 'u' && str[i + 3] != 'b')
+        return (ERROR);
+
 }
 
