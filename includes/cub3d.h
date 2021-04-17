@@ -57,7 +57,15 @@ typedef struct s_rect
 	int color;
 }				t_rect;
 
-
+enum e_errors
+{
+	MISSING_INFOS
+	MAP_IS_OPEN
+	BAD_CHARACTER
+	WRONG_FORMAT
+	VALUE_ERROR
+	MAP_IS_MISSING
+}
 
 int 	main(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -69,4 +77,4 @@ void    ft_init_data(t_data *data);
 void	ft_color(char *str, t_data *data);
 int		ft_check_map(char *str, t_data *data);
 
-#endif
+	#endif
