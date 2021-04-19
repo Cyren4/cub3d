@@ -4,6 +4,6 @@ void    ft_init_data(t_data *data)
 {
     data->c = 0;
     data->f = 0;
-    data->axe_x = 0;
-    data->axe_y = 0;
+    data->win.height = 0;
+    data->win.height = 0;
 }

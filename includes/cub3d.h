@@ -43,10 +43,10 @@ typedef struct  s_data
 	int		i;
 	int		c;
 	int		f;
-	int 	axe_x;
-	int		axe_y;
 	t_img	img;
+	t_win	win;
 }               t_data;
+
 
 typedef struct s_rect
 {
@@ -57,14 +57,20 @@ typedef struct s_rect
 	int color;
 }				t_rect;
 
+typedef struct s_win
+{
+	int width;
+	int height;
+}				t_win;
+
 enum e_errors
 {
-	MISSING_INFOS
-	MAP_IS_OPEN
-	BAD_CHARACTER
-	WRONG_FORMAT
-	VALUE_ERROR
-	MAP_IS_MISSING
+	MISSING_INFOS = 1,
+	MAP_IS_MISSING,
+	ERROR_FORMAT,
+	MAP_IS_OPEN,
+	VALUE_ERROR,
+	OPENING_ERROR	
 }
 
 int 	main(void);

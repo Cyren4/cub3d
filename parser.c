@@ -11,23 +11,17 @@ int ft_parser(char *fichier, t_data *data)
     ret = 1;
     str = NULL;
 
+    if (!ft_check_cub(fichier, data) != 1)
+        return (ERROR_FORMAT); //faire un strjoin pour indiquer
     if (fd = open(fichier, O_DIRECTORY) != -1)
-    {
-        printf("Erreur: ceci est un dossier");
-        return (ERROR);
-    }
+        return (ERROR_FORMAT);
     if (fd = open(fichier, O_READONLY) == -1)
-    {
-        printf("Une erreur est survenue à l'ouverture du fichier");
-        return (ERROR);
-    }
-    while (get_next_line(fd, &line);
-        /*récupérer les infos sur la résolution*/
-        while (is_whitespaces(str[i])
-            i++;
-        
-        /*ft_check_NSEW*/
-        ft_check_map(str, data);
+        return (OPENING_ERROR);
+    while (get_next_line(fd, &line))
+    while (is_whitespaces(str[i])
+        i++;
+    ft_parse_infos(line, data);
+    ft_parse_map(line, data);
     }
     close(fd);
     free(str);
@@ -40,6 +34,5 @@ int ft_check_cub(*str, t_data *data)
         i++;
     if (str[i + 1] != 'c'&& str[i + 2] != 'u' && str[i + 3] != 'b')
         return (ERROR);
-
 }
 
