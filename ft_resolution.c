@@ -13,11 +13,13 @@ void ft_set_resolution(char *line, int i, t_data *data)
                 {
                     data->win.height = ft_atoi(&line[i]);
                     i += ft_intlen(data->win.height);
+                    data->set_infos += 1;
                 }
                 else
                 {
                     (data->win.width = ft_atoi(&line[i]));
                     i += ft_intlen(data->win.width);
+                    data->set_infos += 1;
                 }
             }
         }

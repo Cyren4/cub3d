@@ -36,6 +36,7 @@ void ft_set_color(char *line, int i, t_data *data)
             if (r == -1 || g == -1 || b == -1)
                 return(-1);//set le retour d'erreur
             data->win.ceiling_color = get_rgb(rgb, r, g, b);
+            data->set_infos += 1;
         }
         if (line[i] == 'F')
             r = ft_color_value(line, i);
@@ -44,6 +45,7 @@ void ft_set_color(char *line, int i, t_data *data)
             if (r == -1 || g == -1 || b == -1)
                 return(-1);//set le retour d'erreur
             data->win.floor_color = ft_get_color(line, i, 'F');
+            data->set_infos += 1;
         }      
 }
 int check_value(int c)

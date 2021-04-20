@@ -12,7 +12,7 @@ int ft_parser(char *fichier, t_data *data)
     line = NULL;
     i = 0;
 
-    if (ft_check_cub(fichier, data) != 1)
+    if (ft_check_extension(fichier, "cub") != 1)
         return (ERROR_FORMAT); //faire un strjoin pour indiquer quel est le pb
     if (fd = open(fichier, O_DIRECTORY) != -1)
         return (ERROR_FORMAT);
@@ -23,17 +23,37 @@ int ft_parser(char *fichier, t_data *data)
         ft_parse_infos(line, data);
         /*comment savoir qu'il s'agit de la map*/
         if (ft_parse_infos == 1)
-            ft_parse_map(line, &i, data);
+            ft_parse_map(line, i, data);
     }
     close(fd);
     free(line);
 }
 
-int ft_check_cub(char *str, t_data *data)
+int parse_infos(char *line, int i, t_data *data)
 {
-    while(str[i] != '.')
-        i++;
-    if (str[i + 1] != 'c'&& str[i + 2] != 'u' && str[i + 3] != 'b')
-        return (-1);//définir le retour d'erreur
+    while (data->win.set_infos < 4)
+    {    
+        while (is_whitespaces(line[i]))
+            i++;
+        if (line[i] == 'R')
+            ft_set_resolution(line, i, data);
+        if (line[i] == 'C' || line[i] == 'F')
+            ft_set_color(line, i, data);
+        //if (ft_check_error == -1)
+        //  return (0);
+        if (data->set_infos != 3)
+            return (MISSING_INFOS);
+        return (1);
+    }
+}
+
+//int     ft_check_error()
+int ft_check_extension(char *str, char *ext)
+{
+    while(*str != '.')
+        str++;
+    if (ft_strcmp(str, ext) == 1)
+        return (1);
+    return (0); //set le retour d'erreur
 }
 
