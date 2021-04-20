@@ -6,33 +6,34 @@ int ft_parser(char *fichier, t_data *data)
     int     ret;
     int     fd;
     char    *line;
+    int i;
 
-    /*utiliser get_next_line pour lire les infos du fichier.cub*/
     ret = 1;
-    str = NULL;
+    line = NULL;
+    i = 0;
 
-    if (!ft_check_cub(fichier, data) != 1)
-        return (ERROR_FORMAT); //faire un strjoin pour indiquer
+    if (ft_check_cub(fichier, data) != 1)
+        return (ERROR_FORMAT); //faire un strjoin pour indiquer quel est le pb
     if (fd = open(fichier, O_DIRECTORY) != -1)
         return (ERROR_FORMAT);
     if (fd = open(fichier, O_READONLY) == -1)
         return (OPENING_ERROR);
     while (get_next_line(fd, &line))
-    while (is_whitespaces(str[i])
-        i++;
-    ft_parse_infos(line, data);
-    ft_parse_map(line, data);
+    {
+        ft_parse_infos(line, data);
+        /*comment savoir qu'il s'agit de la map*/
+        if (ft_parse_infos == 1)
+            ft_parse_map(line, &i, data);
     }
     close(fd);
-    free(str);
-
+    free(line);
 }
 
-int ft_check_cub(*str, t_data *data)
+int ft_check_cub(char *str, t_data *data)
 {
     while(str[i] != '.')
         i++;
     if (str[i + 1] != 'c'&& str[i + 2] != 'u' && str[i + 3] != 'b')
-        return (ERROR);
+        return (-1);//définir le retour d'erreur
 }
 

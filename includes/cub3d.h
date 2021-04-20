@@ -59,8 +59,11 @@ typedef struct s_rect
 
 typedef struct s_win
 {
+	int	set_infos;
 	int width;
 	int height;
+	int	ceiling_color;
+	int	floor_color;
 }				t_win;
 
 enum e_errors
@@ -71,7 +74,7 @@ enum e_errors
 	MAP_IS_OPEN,
 	VALUE_ERROR,
 	OPENING_ERROR	
-}
+};
 
 int 	main(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -80,7 +83,9 @@ int		handle_keypress(int keysym, t_data *data);
 int		display(t_data *data);
 void	render_background(t_img *img, int color);
 void    ft_init_data(t_data *data);
-void	ft_color(char *str, t_data *data);
+void	ft_set_color(char *line, int i, t_data *data);
+void 	ft_set_resolution(char *line, int i, t_data *data);
 int		ft_check_map(char *str, t_data *data);
-
+int 	parse_infos(char *line, int i, t_data *data);
+int		check_color_value(int c);
 	#endif
