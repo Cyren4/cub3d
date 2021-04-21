@@ -1,4 +1,4 @@
-#includes "includes/cub3d.h"
+#include "includes/cub3d.h"
 
 int ft_color_value(char *line, int i)
     {
@@ -39,6 +39,7 @@ void ft_set_color(char *line, int i, t_data *data)
             data->set_infos += 1;
         }
         if (line[i] == 'F')
+        {
             r = ft_color_value(line, i);
             g = ft_color_value(line, i);
             b = ft_color_value(line, i);
@@ -57,8 +58,6 @@ int check_value(int c)
 
 int get_rgb(int rgb, int *r, int *g, int *b)
 {
-    /*convertir d'héxadécimal en binaire pour 
-    savoir de combien de bits on décale rgb*/
     rgb = r;
     rgb = rgb << 8 + g;
     rgb = rgb << 8 + b;

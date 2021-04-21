@@ -6,12 +6,9 @@ int ft_parser(char *fichier, t_data *data)
     int     ret;
     int     fd;
     char    *line;
-    int i;
 
     ret = 1;
     line = NULL;
-    i = 0;
-
     if (ft_check_extension(fichier, "cub") != 1)
         return (ERROR_FORMAT); //faire un strjoin pour indiquer quel est le pb
     if (fd = open(fichier, O_DIRECTORY) != -1)
@@ -23,7 +20,7 @@ int ft_parser(char *fichier, t_data *data)
         ft_parse_infos(line, data);
         /*comment savoir qu'il s'agit de la map*/
         if (ft_parse_infos == 1)
-            ft_parse_map(line, i, data);
+            ft_fill_map(line, data);
     }
     close(fd);
     free(line);

@@ -43,6 +43,8 @@ typedef struct  s_data
 	int		i;
 	int		c;
 	int		f;
+	int	set_infos;
+	char	player;
 	t_img	img;
 	t_win	win;
 }               t_data;
@@ -59,7 +61,7 @@ typedef struct s_rect
 
 typedef struct s_win
 {
-	int	set_infos;
+
 	int width;
 	int height;
 	int	ceiling_color;
@@ -73,7 +75,8 @@ enum e_errors
 	ERROR_FORMAT,
 	MAP_IS_OPEN,
 	VALUE_ERROR,
-	OPENING_ERROR	
+	OPENING_ERROR,
+	WRONG_CHARACTER	
 };
 
 int 	main(void);
@@ -88,4 +91,6 @@ void 	ft_set_resolution(char *line, int i, t_data *data);
 int		ft_check_map(char *str, t_data *data);
 int 	parse_infos(char *line, int i, t_data *data);
 int		check_color_value(int c);
+int		ft_check_extension(char *str, char *ext);
+
 	#endif
