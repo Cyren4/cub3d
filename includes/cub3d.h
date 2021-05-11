@@ -18,13 +18,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <math.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include "../mlx_linux/mlx.h"
+//#include <X11/X.h>
+//#include <X11/keysym.h>
+//#include "../mlx_linux/mlx.h"
 #include "../libft/libft.h"
 
 #define ERROR "Error/n"
-#endif
 
 typedef struct s_img
 {
@@ -35,6 +34,14 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }				t_img;
+typedef struct s_win
+{
+
+	int width;
+	int height;
+	int	ceiling_color;
+	int	floor_color;
+}				t_win;
 
 typedef struct  s_data 
 {
@@ -59,27 +66,22 @@ typedef struct s_rect
 	int color;
 }				t_rect;
 
-typedef struct s_win
-{
 
-	int width;
-	int height;
-	int	ceiling_color;
-	int	floor_color;
-}				t_win;
 
 enum e_errors
 {
-	MISSING_INFOS = 1,
+	MISSING_INFOS = 2,
 	MAP_IS_MISSING,
 	ERROR_FORMAT,
 	MAP_IS_OPEN,
 	VALUE_ERROR,
+	MISSING_PLAYER,
 	OPENING_ERROR,
-	WRONG_CHARACTER	
+	WRONG_CHARACTER,
+	WRONG_EXTENSION
 };
 
-int 	main(void);
+int 	main(int ac, char **av);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	img_pix_put(t_img *img, int x, int y, int color);
 int		handle_keypress(int keysym, t_data *data);
@@ -88,9 +90,10 @@ void	render_background(t_img *img, int color);
 void    ft_init_data(t_data *data);
 void	ft_set_color(char *line, int i, t_data *data);
 void 	ft_set_resolution(char *line, int i, t_data *data);
-int		ft_check_map(char *str, t_data *data);
+int		ft_check_map(char *line);
 int 	parse_infos(char *line, int i, t_data *data);
 int		check_color_value(int c);
 int		ft_check_extension(char *str, char *ext);
+int		get_next_line(int fd, char **line);
 
-	#endif
+#endif

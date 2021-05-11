@@ -10,13 +10,13 @@ int ft_check_map(char *line)
         if (line[i] != 0 || line[i] != 1 || line[i] != 2 
             || line[i] != 'N' || line[i] != 'S' 
             || line[i] != 'W' || line[i] != 'E')
-            return (0);
+            return (WRONG_CHARACTER);
         return (1);}
     }
 
         /*checker si la map existe*/
         /*checker si elle est bien fermée*/
-int ft_player_position(char **map, t_data *data)
+int ft_player_position(char **map, t_data *data)//sinon faire un strchr dans *line pour chaque lettre
 {
     int *i;
 
@@ -43,7 +43,8 @@ int ft_player_position(char **map, t_data *data)
             data->player = 'E';
             return (&i);
         }
-        return (0); //missing player
+        i++;
+        return (MISSING_PLAYER);
     }    
 }
 int ft_fill_map(char *line, t_data *data)
@@ -59,13 +60,14 @@ int ft_fill_map(char *line, t_data *data)
 
      while (line[i])
      {
-        if (ft_check_map == 1)
+        if (ft_check_map != WRONG_CHARACTER)
         {
+            //calculer la taille de mon tableau à double entrée
             map[y] = ft_strdup(line);
             y++;
         }
         else
-            return (0); //erreur map
+            printf("Error\n map is not properly defined.");
      }
      return (map);
 }

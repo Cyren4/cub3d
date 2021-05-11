@@ -5,12 +5,12 @@ SOURCEDIR = ./srcs/
 INCLUDES_MAC = ./includes/
 
 
-SRCS = $(MAIN)main.c \
+SRCS = $(MAIN)get_file.c get_next_line.c\
 
 
 OBJS := ${SRCS:c=o}
 
-CC = clang -g $(FLAGS)
+CC = clang -g $(FLAGS) test.cub
 
 LIBS = ./libft
 

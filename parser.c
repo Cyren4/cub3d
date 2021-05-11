@@ -9,18 +9,18 @@ int ft_parser(char *fichier, t_data *data)
 
     ret = 1;
     line = NULL;
-    if (ft_check_extension(fichier, "cub") != 1)
-        return (ERROR_FORMAT); //faire un strjoin pour indiquer quel est le pb
+    if (ft_check_extension(fichier, ".cub") != 1)
+        return (ERROR_FORMAT);
     if (fd = open(fichier, O_DIRECTORY) != -1)
         return (ERROR_FORMAT);
-    if (fd = open(fichier, O_READONLY) == -1)
+    if (fd = open(fichier, O_RDONLY) == -1)
         return (OPENING_ERROR);
     while (get_next_line(fd, &line))
     {
-        ft_parse_infos(line, data);
+        ft_parse_infos(&line, data);
         /*comment savoir qu'il s'agit de la map*/
         if (ft_parse_infos == 1)
-            ft_fill_map(line, data);
+            ft_fill_map(&line, data);
     }
     close(fd);
     free(line);
@@ -28,7 +28,7 @@ int ft_parser(char *fichier, t_data *data)
 
 int parse_infos(char *line, int i, t_data *data)
 {
-    while (data->win.set_infos < 4)
+    while (data->set_infos < 4)
     {    
         while (is_whitespaces(line[i]))
             i++;
@@ -44,13 +44,12 @@ int parse_infos(char *line, int i, t_data *data)
     }
 }
 
-//int     ft_check_error()
 int ft_check_extension(char *str, char *ext)
 {
     while(*str != '.')
         str++;
     if (ft_strcmp(str, ext) == 1)
         return (1);
-    return (0); //set le retour d'erreur
+    return (WRONG_EXTENSION);
 }
 

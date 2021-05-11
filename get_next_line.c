@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "includes/cub3d.h"
 
 # ifndef BUFF_SIZE
 #  define BUFF_SIZE 32
@@ -39,7 +39,7 @@ char	*stock_line(char *str, char **line)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (i < ft_strlen(str))
+	if (i < (int)ft_strlen(str))
 	{
 		tmp = str;
 		*line = ft_substr(str, 0, i);
