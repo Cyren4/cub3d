@@ -5,7 +5,7 @@ SOURCEDIR = ./srcs/
 INCLUDES_MAC = ./includes/
 
 
-SRCS = $(MAIN)get_file.c get_next_line.c \
+SRCS = $(MAIN)get_file.c get_next_line.c main.c\
 
 
 OBJS := ${SRCS:c=o}
