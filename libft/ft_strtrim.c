@@ -25,7 +25,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str = ft_substr((char *)s1, 0, len + 1);
 	return (str);
 }
-int main()
-{
-	printf("%s", ft_strtrim("    trap", " "));
-}

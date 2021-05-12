@@ -3,25 +3,24 @@
 /*faire un tableau de char à double entrée pour y mettre les coordonnées */
 int ft_parser(char *fichier, t_data *data)
 {
-    int     ret;
+    int     lvl;
     int     fd;
     char    *line;
 
-    ret = 1;
+   
     line = NULL;
     if (ft_check_extension(fichier, ".cub") != 1)
         return (ERROR_FORMAT);
-    if (fd = open(fichier, O_DIRECTORY) != -1)
-        return (ERROR_FORMAT);
+    /*trouver comment detecter que c'est un dossier*/
     if (fd = open(fichier, O_RDONLY) == -1)
         return (OPENING_ERROR);
-    while (get_next_line(fd, &line))
+    
+    /*while (get_next_line(fd, &line))
     {
         ft_parse_infos(&line, data);
-        /*comment savoir qu'il s'agit de la map*/
         if (ft_parse_infos == 1)
             ft_fill_map(&line, data);
-    }
+    }*/
     close(fd);
     free(line);
 }

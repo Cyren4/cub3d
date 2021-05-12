@@ -8,8 +8,8 @@ char    **get_file(int fd, int lvl)
         tab[lvl] = *get_file(fd, lvl + 1);
     else
     {
-        tab = (char**)malloc(sizeof(char*) * lvl);
-        //tab[lvl] = NULL;
+        tab = malloc(sizeof(char*) * lvl);
+        free(line);
         return (tab);
     }
     tab[lvl] = line;
