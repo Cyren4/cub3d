@@ -5,7 +5,8 @@ SOURCEDIR = ./srcs/
 INCLUDES_MAC = ./includes/
 
 
-SRCS = $(MAIN)get_file.c get_next_line.c main.c\
+SRCS = $(MAIN)get_file.c get_next_line.c main.c parser.c ft_init_data.c\
+ft_resolution.c ft_error.c ft_infos_color.c \
 
 
 OBJS := ${SRCS:c=o}

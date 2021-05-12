@@ -6,7 +6,7 @@
 /*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2021/05/12 15:44:45 by ldes-cou@st      ###   ########.fr       */
+/*   Updated: 2021/05/12 16:57:27 by ldes-cou@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,21 @@ int		display(t_data *data);
 void	render_background(t_img *img, int color);
 /*parsing*/
 
-int 	ft_parser(int fd, t_data *data)
+int 	ft_parser(char *fichier,int fd);
 void    ft_init_data(t_data *data);
-void	ft_set_color(char *line, int i, t_data *data);
-void 	ft_set_resolution(char *line, int i, t_data *data);
+void	ft_set_color(char **infos, int i, t_data *data);
+void 	ft_set_resolution(char **infos, int i, t_data *data);
 int		ft_check_map(char *line);
-int 	parse_infos(char *line, int i, t_data *data);
-int		check_color_value(int c);
+int 	parse_infos(char **infos, t_data *data);
+int		check_value(int c);
+int 	get_rgb(int rgb, int *r, int *g, int *b);
+int 	ft_set_color(char **infos, int i, t_data *data);
 int		ft_check_extension(char *str, char *ext);
 int		get_next_line(int fd, char **line);
+char    **get_file(int fd, int lvl);
+
+/*utils*/
+int		is_whitespace(char c);
+
 
 #endif

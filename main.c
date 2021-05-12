@@ -12,5 +12,5 @@ int main(int ac, char **argv)
         return (OPENING_ERROR);
         printf("Error\nwhile opening file");
     }
-    ft_parser(argv[1], data);
+    ft_parser(argv[1],fd);
 }
