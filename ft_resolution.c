@@ -8,7 +8,6 @@ void ft_set_resolution(char **infos, int i, t_data *data)
         {
             while(is_whitespace(*infos[i]))
                 i++;
-            printf("%d", i);
             if (ft_isdigit(*infos[i]))
             {
                 if (data->win.height == 0)

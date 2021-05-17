@@ -6,7 +6,7 @@
 /*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2021/05/17 12:36:02 by ldes-cou@st      ###   ########.fr       */
+/*   Updated: 2021/05/17 16:10:03 by ldes-cou@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void 	ft_set_resolution(char **infos, int i, t_data *data);
 int		ft_check_map(char *line);
 int 	parse_infos(char **infos, t_data *data);
 int		check_value(int c);
-int 	get_rgb(int rgb, int *r, int *g, int *b);
+int 	get_rgb(int rgb, int r, int g, int b);
 int 	ft_set_color(char **infos, int i, t_data *data);
 int		ft_check_extension(char *str, char *ext);
 int		get_next_line(int fd, char **line);

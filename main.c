@@ -26,6 +26,7 @@ int main(int ac, char **argv)
         printf("%d - %s\n", i, infos[i]);
         i++;
     }*/
+    //ft_memset(&data, 0,sizeof(data));
     parse_infos(infos, &data);
     close(fd);
     free(infos);
