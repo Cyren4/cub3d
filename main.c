@@ -2,15 +2,32 @@
 
 int main(int ac, char **argv)
 {
-    int fd;
-    t_data *data;
-    
-    if (ac < 1)
-        return (NO_CONFIG_FILE);
-    if ((fd = open(argv[1], O_RDONLY) == -1))
+    int     fd;
+    t_data  data;
+    int     lvl;
+    char    **infos;
+    int i;
+
+    if (ac < 2)
     {
-        return (OPENING_ERROR);
-        printf("Error\nwhile opening file");
+        printf("Error\nconfiguration file's missing");
+        return (NO_CONFIG_FILE);
     }
-    ft_parser(argv[1],fd);
+    fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+    {
+        printf("Error\nwhile opening file");
+        return (OPENING_ERROR);     
+    }
+    
+    infos = get_file(fd, 0);
+    /*while (infos[i])
+    {
+        printf("%d - %s\n", i, infos[i]);
+        i++;
+    }*/
+    parse_infos(infos, &data);
+    close(fd);
+    free(infos);
+    return (0);
 }

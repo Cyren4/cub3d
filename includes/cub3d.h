@@ -6,7 +6,7 @@
 /*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2021/05/12 16:57:27 by ldes-cou@st      ###   ########.fr       */
+/*   Updated: 2021/05/17 12:36:02 by ldes-cou@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <math.h>
-//#include <X11/X.h>
-//#include <X11/keysym.h>
-//#include "../mlx_linux/mlx.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include "../mlx_linux/mlx.h"
 #include "../libft/libft.h"
 
 #define ERROR "Error/n"
@@ -95,7 +95,7 @@ void	render_background(t_img *img, int color);
 
 int 	ft_parser(char *fichier,int fd);
 void    ft_init_data(t_data *data);
-void	ft_set_color(char **infos, int i, t_data *data);
+int		ft_set_color(char **infos, int i, t_data *data);
 void 	ft_set_resolution(char **infos, int i, t_data *data);
 int		ft_check_map(char *line);
 int 	parse_infos(char **infos, t_data *data);

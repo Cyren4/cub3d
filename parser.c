@@ -1,48 +1,27 @@
 #include "includes/cub3d.h"
 
-/*faire un tableau de char à double entrée pour y mettre les coordonnées */
-int ft_parser(char *fichier, int fd)
-{
-    int     lvl;
-    char    **infos;
-    int     i;
-
-   
-    infos = NULL;
-    if (ft_check_extension(fichier, ".cub") != 1)
-        return (ERROR_FORMAT);
-    /*trouver comment detecter que c'est un dossier*/
-
-    infos = get_file(fd, 0);
-    while (infos[i++])
-    {
-        printf("%d - %s\n", i, infos[i]);
-        free(infos[i]);
-    }
-    close(fd);
-    free(infos);
-    return (0);
-}
-
 int parse_infos(char **infos, t_data *data)
 {
     int i;
 
     i = 0;
+    
     while (data->set_infos < 4)
     {    
-        while (is_whitespaces(*infos[i]))
+        while (is_whitespace(*infos[i]))
             i++;
         if (*infos[i] == 'R')
+        {
             ft_set_resolution(infos, i, data);
-        if (*infos[i] == 'C' || *infos[i] == 'F')
+            printf("2 = %d", i);
+        }
+        if (*infos[i] == 'C'|| *infos[i] == 'F')
             ft_set_color(infos, i, data);
         if (data->set_infos != 3)
         {
             return (MISSING_INFOS);
             printf("Error\nmissing infos");
-        }
-        
+        }   
     }
     return (1);
 }

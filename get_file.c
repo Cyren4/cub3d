@@ -2,18 +2,20 @@
 char    **get_file(int fd, int lvl)
 {
     char *line;
-    char **tab;
+    char **infos;
 
+    line = NULL;
     if (get_next_line(fd, &line) == 1)
-        tab = get_file(fd, lvl + 1);
+        infos = get_file(fd, lvl + 1);
     else
     {
-        tab = malloc(sizeof(char*) * lvl);
-        free(line);
-        return (tab);
+        infos = malloc(sizeof(char*) * (lvl + 2));
+        infos[lvl + 1] = NULL;
+        infos[lvl] = line;
+        return (infos);
     }
-    tab[lvl] = line;
-    return (tab);
+    infos[lvl] = line;
+    return (infos);
 }
 /*int main(int ac, char **av)
 {
