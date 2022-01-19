@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 13:34:45 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/19 15:33:42 by ldes-cou         ###   ########.fr       */
+/*   Created: 2022/01/19 17:00:16 by ldes-cou          #+#    #+#             */
+/*   Updated: 2022/01/19 18:14:41 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init(t_data *d)
+int check_value(int c)
 {
-	ft_memset(d, 0,sizeof(d));
-	//print_map(d->map);
-}
-void print_map(char **infos)
-{
-	int i = 0;
-	
-	while (infos[i])
-    {
-        printf("%d - %s\n", i, infos[i]);
-        i++;
-    }
+    if (c < 0 || c > 255) 
+        return (0);
+    return (1);
 }
 
+void get_color(char *line, int color)
+{
+    int i;
+    char **col;
+
+    i = 0;
+    while(is_whitespace(line[i]))
+        i++;
+    col = ft_split(ft_strtrim(line, " "), ',');
+    //check_value de col
+    //transforme ca en int ou en hexa
+    //stocke le dans ceiling/floor
+    
+}

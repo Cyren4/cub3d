@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:23:37 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/19 14:23:09 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:09:53 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 int main(int ac, char **argv)
 {
     int     fd;
-    t_data  d;
+    t_data  data;
     int i;
 
     fd = 0;
     i = 0;
-    if (check_error(fd, ac, argv))
-        return (1);
-    puts("here");
-    //init(&d, fd);
-    ft_memset(&d, 0,sizeof(d));
-    d.file = get_file(fd, 0);
-    print_map(d.file);
-    //parse_infos(infos, &data);
-    //close(fd);
-    //free_map(&d);
+    fd = check_file(fd, ac, argv);
+    init(&data);
+    get_file(&data, fd, 0);
+    print_map(data.file);
+    parse_infos(infos, &data);
+    close(fd);
+    free_map(&data);
     return (0);
 }

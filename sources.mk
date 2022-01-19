@@ -3,7 +3,7 @@
 ## SRCS ##
 
 SOURCES		+=                    		\
-		srcs/ft_error.c              	\
+		srcs/get_file.c              	\
 		srcs/put_image.c             	\
 		srcs/ft_infos_color.c        	\
 		srcs/parser.c                	\

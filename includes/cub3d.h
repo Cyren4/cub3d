@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/19 14:23:28 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:09:58 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,30 @@
 #include "../libft/libft.h"
 #include <errno.h>
 
-#define ERROR "Error/n"
+/*KEYS*/
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define ESC 65307
 
 typedef struct s_img
 {
 
 	void	*mlx_img;
 	char	*addr;
-	int		bpp; /* bits per pixel */
+	int		bpp;
 	int		line_len;
 	int		endian;
 }				t_img;
+
+
 typedef struct s_win
 {
 
 	int width;
 	int height;
-	int	ceiling_color;
-	int	floor_color;
+
 }				t_win;
 
 typedef struct  s_data 
@@ -51,9 +57,11 @@ typedef struct  s_data
 	int		i;
 	int		c;
 	int		f;
-	int		set_infos;
+	int		infos;
 	char	player;
 	char	**file;
+	int		ceiling;
+	int		floor;
 	t_img	img;
 	t_win	win;
 }               t_data;
@@ -70,20 +78,6 @@ typedef struct s_rect
 
 
 
-enum e_errors
-{
-	MISSING_INFOS = 2,
-	OPENING_ERROR,
-	NO_CONFIG_FILE,
-	WRONG_EXTENSION,
-	WRONG_ARG,
-	ERROR_FORMAT,
-	MAP_IS_OPEN,
-	VALUE_ERROR,
-	MISSING_PLAYER,
-	WRONG_CHARACTER
-	
-};
 
 int 	main(int ac, char **av);
 /*render*/
@@ -96,9 +90,9 @@ void	render_background(t_img *img, int color);
 
 /*parsing*/
 void	print_map(char **infos);
-void 	init(t_data *d, int fd);
+void 	init(t_data *d);
 int		free_map(t_data *d);
-int		check_error(int fd, int ac, char **argv);
+int		check_file(int fd, int ac, char **argv);
 int 	ft_parser(char *fichier,int fd);
 void    ft_init_data(t_data *data);
 int		ft_set_color(char **infos, int i, t_data *data);
@@ -110,7 +104,7 @@ int 	get_rgb(int rgb, int r, int g, int b);
 int 	ft_set_color(char **infos, int i, t_data *data);
 int		ft_check_extension(char *str, char *ext);
 int		get_next_line(int fd, char **line);
-char	**get_file(int fd, int lvl);
+void	get_file(t_data *d, int fd, int lvl);
 
 /*utils*/
 int		is_whitespace(char c);

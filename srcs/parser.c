@@ -1,51 +1,34 @@
-// #include "cub3d.h"
+#include "cub3d.h"
 
-// int parse_infos(char **infos, t_data *data)
-// {
-//     int i;
 
-//     i = 0;
-//     //printf("%i", data->set_infos);
-//     while (data->set_infos < 4)
-//     {
-        
-//         while (is_whitespace(*infos[i]))
-//             i++;
-//         //printf("i = %i\n", i);
-//         //printf("infos = %c", **infos);
-//         if (*infos[i] == 'R')
-//         {
-//             ft_set_resolution(infos, i, data);
-//      //       printf("2 = %d", i);
-//         }
-//     //    printf("5 = %i", data->set_infos);
-//         if (*infos[i] == 'C'|| *infos[i] == 'F')
-//         {
-//             //printf("infos = %c", **infos);
-//             ft_set_color(infos, i, data);
-//         }
-//         if (data->set_infos != 3)
-//         {
-//             return (MISSING_INFOS);
-//             printf("Error\nmissing infos");
-//         }
-//         i++;
-//     }   
-//     return (1);
-// }
+void parse_infos(t_data *d)
+{
+    int i;
 
-// int ft_check_extension(char *str, char *ext)
-// {
-//     while(*str != '.')
-//         str++;
-//     if (ft_strcmp(str, ext) == 0)
-//         return (1);
-//     return (WRONG_EXTENSION);
-// }
+    i = 0;
+    while(d->file[i])
+    {
+        while(is_whitespace(d->file[i]))
+            i++;
+        if (d->file[i] == "F")
+        {
+            get_color(d->file[i + 1], d->floor);
+            d->infos++;
+        }
+        if (d->file[i] == "C")
+        {
+            get_color(d->file[i + 1], d->ceiling);
+            d->infos++;
+        }
+        if (ft_strncmp(d->file[i], "NO", 2)
+            //get_textures()
+        i++;
+    }
+}
 
-// int is_whitespace(char c)
-// {
-//     if ((c >= 9 && c <= 13) || c == 32)
-//         return(1);
-//     return (0);
-// }
+/*check_map*/
+    //wrong charactr
+    //open map
+    //
+
+/*
