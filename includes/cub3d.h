@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
+/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2021/05/17 16:10:03 by ldes-cou@st      ###   ########.fr       */
+/*   Updated: 2022/01/19 14:23:28 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 #include <math.h>
 #include <X11/X.h>
 #include <X11/keysym.h>
-#include "../mlx_linux/mlx.h"
+#include <string.h>
 #include "../libft/libft.h"
+#include <errno.h>
 
 #define ERROR "Error/n"
 
@@ -50,8 +51,9 @@ typedef struct  s_data
 	int		i;
 	int		c;
 	int		f;
-	int	set_infos;
+	int		set_infos;
 	char	player;
+	char	**file;
 	t_img	img;
 	t_win	win;
 }               t_data;
@@ -74,7 +76,7 @@ enum e_errors
 	OPENING_ERROR,
 	NO_CONFIG_FILE,
 	WRONG_EXTENSION,
-	MAP_IS_MISSING,
+	WRONG_ARG,
 	ERROR_FORMAT,
 	MAP_IS_OPEN,
 	VALUE_ERROR,
@@ -91,8 +93,12 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 int		handle_keypress(int keysym, t_data *data);
 int		display(t_data *data);
 void	render_background(t_img *img, int color);
-/*parsing*/
 
+/*parsing*/
+void	print_map(char **infos);
+void 	init(t_data *d, int fd);
+int		free_map(t_data *d);
+int		check_error(int fd, int ac, char **argv);
 int 	ft_parser(char *fichier,int fd);
 void    ft_init_data(t_data *data);
 int		ft_set_color(char **infos, int i, t_data *data);
@@ -104,7 +110,7 @@ int 	get_rgb(int rgb, int r, int g, int b);
 int 	ft_set_color(char **infos, int i, t_data *data);
 int		ft_check_extension(char *str, char *ext);
 int		get_next_line(int fd, char **line);
-char    **get_file(int fd, int lvl);
+char	**get_file(int fd, int lvl);
 
 /*utils*/
 int		is_whitespace(char c);
