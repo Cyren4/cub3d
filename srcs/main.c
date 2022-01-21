@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:23:37 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/19 16:09:53 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:00:33 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int main(int ac, char **argv)
 
     fd = 0;
     i = 0;
-    fd = check_file(fd, ac, argv);
+    open_file(&fd, ac, argv);
     init(&data);
     get_file(&data, fd, 0);
     print_map(data.file);
-    parse_infos(infos, &data);
+    //parse_infos(infos, &data);
     close(fd);
     free_map(&data);
     return (0);

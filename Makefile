@@ -1,6 +1,6 @@
 # Generated with GenMake
 # Arthur-TRT - https://github.com/arthur-trt/genMake
-# genmake v1.1.3
+# genmake v1.1.1
 
 #Compiler and Linker
 CC					:= clang
@@ -35,9 +35,9 @@ cflags.release		:= -Wall -Werror -Wextra
 cflags.valgrind		:= -Wall -Werror -Wextra -DDEBUG -ggdb
 cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer
 CFLAGS				:= $(cflags.$(BUILD))
-CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
+CPPFLAGS			:= $(cflags.$(BUILD)) #-std=c++98
 
-lib.release			:=  -Llibft -lft -Lmlx-linux -lmlx -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm
+lib.release			:=  -L/root/42/cub3D/libft -lft
 lib.valgrind		:= $(lib.release)
 lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
 LIB					:= $(lib.$(BUILD))
@@ -61,14 +61,15 @@ GREP				:= grep --color=auto --exclude-dir=.git
 NORMINETTE			:= norminette `ls`
 
 # Default Make
-all: libft minilibx $(TARGETDIR)/$(TARGET)
+all: libft $(TARGETDIR)/$(TARGET)
 	@$(ERASE)
 	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
 
 # Bonus rule
 bonus: CFLAGS += -DBONUS
-bonus: libft minilibx $(TARGETDIR)/$(TARGET_BONUS)
+bonus: CPPFLAGS += -DBONUS
+bonus: libft $(TARGETDIR)/$(TARGET_BONUS)
 	@$(ERASE)
 	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful with bonus! 👌 $(C_RESET)"
@@ -80,14 +81,13 @@ re: fclean all
 clean:
 	@$(RM) -f *.d *.o
 	@$(RM) -rf $(BUILDDIR)
-	@make $@ -C libft
-	@make $@ -C mlx-linux
+	@make $@ -C /root/42/cub3D/libft
 
 
 # Full Clean, Objects and Binaries
 fclean: clean
 	@$(RM) -rf $(TARGET)
-	@make $@ -C libft
+	@make $@ -C /root/42/cub3D/libft
 
 
 # Pull in dependency info for *existing* .o files
@@ -110,8 +110,8 @@ $(BUILDIR):
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
 	@$(ECHO) "$(TARGET)\t\t[$(C_PENDING)⏳$(C_RESET)]"
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-	@$(CC) $(CFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
 	@$(ERASE)
 	@$(ERASE)
 	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
@@ -120,14 +120,11 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
 
 libft:
-	@make -C libft
-
-minilibx:
-	@make -C mlx-linux
+	@make -C /root/42/cub3D/libft
 
 
 norm:
 	@$(NORMINETTE) | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
 
 # Non-File Targets
-.PHONY: all re clean fclean norm bonus libft minilibx
+.PHONY: all re clean fclean norm bonus libft

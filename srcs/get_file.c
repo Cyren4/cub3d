@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 09:57:17 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/19 15:36:37 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/21 08:58:32 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_format(char *str, char *ext)
 	return (1);
 }
 
-int check_file(int fd, int ac, char **argv)
+int open_file(int *fd, int ac, char **argv)
 {
     
     if (ac != 2 || check_format(argv[1], ".cub"))
@@ -29,19 +29,19 @@ int check_file(int fd, int ac, char **argv)
         printf("Error: program takes only one argument, a map with a .cub extension");
         exit (1);
     }
-    fd = open(argv[1], __O_DIRECTORY);
-    if (fd != -1)
+    *fd = open(argv[1], __O_DIRECTORY);
+    if (*fd != -1)
     {
         printf("Error: file is a directory");
         exit(1);
     }
-    fd = open(argv[1], O_RDONLY);
-    if (fd < 0)
+    *fd = open(argv[1], O_RDONLY);
+    if (*fd < 0)
     {
         printf("%s\n", strerror(errno));
         exit (errno);
     }
-    return (fd);
+    return (*fd);
 }
 
 void	get_file(t_data *data, int fd, int lvl)

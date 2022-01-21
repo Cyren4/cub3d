@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/19 18:09:58 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/21 10:54:33 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <math.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
+#include <stdbool.h>
+// #include <X11/X.h>
+// #include <X11/keysym.h>
 #include <string.h>
-#include "../libft/libft.h"
+#include "/root/42/cub3D/libft/libft.h"
 #include <errno.h>
+# define DIRECTIONS "NSEW"
+# define VALID_CHARACTERS "01234NSEW"
 
 /*KEYS*/
 # define W 119
@@ -31,6 +34,14 @@
 # define D 100
 # define ESC 65307
 
+enum PATH
+{
+	NO,
+	SO,
+	EA,
+	WE
+};
+ 
 typedef struct s_img
 {
 
@@ -41,7 +52,14 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
-
+typedef struct s_text
+{
+	char *path_no;
+	char *path_so;
+	char *path_ea;
+	char *path_we;
+}
+				t_text;
 typedef struct s_win
 {
 
@@ -64,6 +82,7 @@ typedef struct  s_data
 	int		floor;
 	t_img	img;
 	t_win	win;
+	t_text	txt;
 }               t_data;
 
 
@@ -89,25 +108,24 @@ int		display(t_data *data);
 void	render_background(t_img *img, int color);
 
 /*parsing*/
+int		open_file(int *fd, int ac, char **argv);
 void	print_map(char **infos);
 void 	init(t_data *d);
-int		free_map(t_data *d);
-int		check_file(int fd, int ac, char **argv);
+int		get_next_line(int fd, char **line);
+void	get_file(t_data *d, int fd, int lvl);
 int 	ft_parser(char *fichier,int fd);
-void    ft_init_data(t_data *data);
 int		ft_set_color(char **infos, int i, t_data *data);
-void 	ft_set_resolution(char **infos, int i, t_data *data);
 int		ft_check_map(char *line);
-int 	parse_infos(char **infos, t_data *data);
+void 	parse_infos(t_data *data);
 int		check_value(int c);
 int 	get_rgb(int rgb, int r, int g, int b);
 int 	ft_set_color(char **infos, int i, t_data *data);
 int		ft_check_extension(char *str, char *ext);
-int		get_next_line(int fd, char **line);
-void	get_file(t_data *d, int fd, int lvl);
 
 /*utils*/
 int		is_whitespace(char c);
-
+int		is_in_array(char **array, char *str);
+int		free_map(t_data *d);
+char	**build_array(void);
 
 #endif

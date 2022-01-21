@@ -2,17 +2,21 @@
 
 ## SRCS ##
 
-SOURCES		+=                    		\
-		srcs/get_file.c              	\
-		srcs/put_image.c             	\
-		srcs/ft_infos_color.c        	\
-		srcs/parser.c                	\
-		srcs/main.c                  	\
-		srcs/map.c                   	\
-		srcs/get_next_line.c         	\
-		srcs/ft_init_data.c          	\
-		srcs/utils.c                 	\
-		srcs/my_mlx_pixel_put.c      	\
-		srcs/init.c                  	\
+SOURCES		+=                            		\
+		srcs/parser.c                        	\
+		srcs/init.c                          	\
+		srcs/get_file.c                      	\
+		srcs/utils.c                         	\
+		srcs/get_next_line.c                 	\
+		srcs/color.c                         	\
+		srcs/map.c                           	\
+		srcs/main.c                          	\
+
+
+## SRCS/DISPLAY ##
+
+SOURCES		+=                            		\
+		srcs/display/my_mlx_pixel_put.c      	\
+		srcs/display/put_image.c             	\
 
 
