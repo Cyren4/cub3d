@@ -23,6 +23,7 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+void				ft_memdel(char **str);
 int					ft_strcmp(char *s1, char *s2);
 char 				*ft_strcpy(char *dest, char *src);
 char				*ft_itoa_base(long unsigned n, int base);

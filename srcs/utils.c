@@ -6,36 +6,43 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:40:08 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/21 10:55:45 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:57:05 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char **build_array(void)
-{
-	char **directions;
+// char **build_array(void)
+// {
+// 	char **directions;
 	
-	directions = malloc((sizeof(char *) * 4) + 1);
-	directions[0] = ft_strdup("NO");
-	directions[1] = ft_strdup("SO");
-	directions[2] = ft_strdup("EA");
-	directions[3] = ft_strdup("WE");
-	return (directions);
-}
+// 	directions = NULL;
+// 	directions = malloc((sizeof(char *) * 4) + 1);
+// 	directions[0] = ft_strdup("NO");
+// 	directions[1] = ft_strdup("SO");
+// 	directions[2] = ft_strdup("EA");
+// 	directions[3] = ft_strdup("WE");
+// 	return (directions);
+// }
 
-int is_in_array(char **array, char *str)
+int is_cardinal(char *line)
 {
 	int i;
 
 	i = 0;
-	while (array[i])
-	{
-		if (!ft_strcmp(array[i], str))
-			return (i);
+	if (line[i] == '\0')
+		return(-1);
+	while (is_whitespace(line[i]))
 		i++;
-	}
-	return(-1);
+	if (!ft_strncmp(line, "NO", 2))
+		return (NO);
+	else if (!ft_strncmp(line, "SO", 2))
+		return (SO);
+	else if (!ft_strncmp(line, "EA", 2))
+		return (EA);
+	else if (!ft_strncmp(line, "WE", 2))
+		return (WE);
+	return (-1);
 }
 
 int is_whitespace(char c)
@@ -45,17 +52,30 @@ int is_whitespace(char c)
     return(0);
 }
 
-int	free_map(t_data *d)
+void	free_array(char **array)
 {
 	int	i;
 
 	i = 0;
-	while (d->file[i])
+	if (array)
 	{
-		free(d->file[i]);
-		d->file[i] = NULL;
-		i++;
+		while (array && array[i])
+		{
+			ft_memdel(&array[i]);
+			i++;
+		}
+		free(array);
+		array = NULL;
 	}
-	free(d->file);
-	return (0);
+}
+
+char **split_trim(char *line)
+{
+    char *trim;
+    char **rgb;
+
+    trim = ft_strtrim(line, " ");
+    rgb = ft_split(trim, ',');
+    free(trim);
+    return (rgb);
 }

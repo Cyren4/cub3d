@@ -7,48 +7,51 @@ void get_path(int path, t_data *d, char *str)
     int i;
 
     i = 0;
-    while (is_whitespace(str[i]))
+    while (str[i] && is_whitespace(str[i]))
         i++;
     if (path == NO)
-        ft_strcpy(&str[i], d->txt.path_no);
+        d->txt.path_no = ft_strdup(&str[i]);
     else if (path == SO)
-        ft_strcpy(&str[i],  d->txt.path_so);
+        d->txt.path_so = ft_strdup(&str[i]);
     else if (path == EA)
-        ft_strcpy(&str[i], d->txt.path_ea);
+        d->txt.path_ea = ft_strdup(&str[i]);
     else if (path == WE)
-        ft_strcpy(&str[i], d->txt.path_we);
-    //il y a t-il moyen de tester un path ?
+        d->txt.path_we = ft_strdup(&str[i]);
+        //test path ?
 }
 
 void parse_infos(t_data *d)
 {
     int i;
     int path;
-    char **directions;
 
     i = 0;
-    directions = build_array();
-    while(d->file[i])
+    path = 0;
+    while(d->file && d->file[i])
     {
-        while(is_whitespace(*d->file[i]))
-            i++;
-        if (!ft_strcmp(d->file[i], "F") || !ft_strcmp(d->file[i], "C"))
+        if (*d->file[i] == 'F')
+            d->floor = get_color(d->file[i]);
+        else if(*d->file[i] == 'C')
+            d->ceiling = get_color(d->file[i]);
+        else if (is_cardinal(d->file[i]) != -1)
         {
-            //get_color(d->file[i + 1], d->floor);
-            d->infos++;
-        }
-        if (is_in_array(directions, d->file[i]) != -1)
-        {
-            path = is_in_array(directions, d->file[i]);
+            path = is_cardinal(d->file[i]);
             get_path(path, d, d->file[i]);
         }
         i++;
+        if (check_infos(d) == 0)
+            break;
     }
-    //free_array(directions)
+    check_map(d, i + 1);
+    
 }
 
-
-//check_map
-    //wrong charactr
-    //open map
-    //
+int check_infos(t_data *d)
+{
+    if (d->ceiling == 1 || d->floor == 1)
+        return (1);
+    else if (d->txt.path_we == NULL || d->txt.path_ea == NULL 
+        || d->txt.path_no == NULL || d->txt.path_so == NULL)
+        return (1);
+    return (0);
+}

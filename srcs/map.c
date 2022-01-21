@@ -1,21 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/21 18:10:18 by ldes-cou          #+#    #+#             */
+/*   Updated: 2022/01/21 21:09:25 by ldes-cou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-// int ft_check_map(char *line)
-// {
-//     int i;
+void check_map(t_data *d, int i)
+{
+    int j;
+    
+    j = i;
+    while(d->file[i])
+    {
+        while(is_whitespace(*d->file[i]))
+            i++;
+        check_char(d, d->file[i]);
+        i++;
+    }
+}
 
-//     i = 0;
-//     while (line[i])
-//     {        
-//         if (line[i] != 0 || line[i] != 1 || line[i] != 2 
-//             || line[i] != 'N' || line[i] != 'S' 
-//             || line[i] != 'W' || line[i] != 'E')
-//             return (WRONG_CHARACTER);
-//         return (1);}
-//     }
+void check_char(t_data *d, char *line)
+{
+    int i;
+
+    i = 0;
+    while (line[i])
+    {        
+        if (!ft_strchr(VALID_CHAR, line[i]))
+        {
+            printf("there's a forgiven character\n");
+            free_exit(d);
+        }
+        i++;
+    }
+}
 
 //         /*checker si la map existe*/
 //         /*checker si elle est bien fermée*/
+
 // int ft_player_position(char **map, t_data *data)//sinon faire un strchr dans *line pour chaque lettre
 // {
 //     int *i;

@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 19:47:38 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/21 20:27:38 by ldes-cou         ###   ########.fr       */
+/*   Created: 2022/01/21 16:47:12 by ldes-cou          #+#    #+#             */
+/*   Updated: 2022/01/21 16:47:21 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+void	ft_memdel(char **str)
 {
-	char	*str;
-	size_t	len;
-
-	while (*s1 && ft_strchr(set, *s1))
-		s1++;
-	len = ft_strlen(s1);
-	while (len && ft_strchr(set, s1[len]))
-		len--;
-	str = ft_substr((char *)s1, 0, len + 1);
-	return (str);
+	free(*str);
+	*str = NULL;
 }

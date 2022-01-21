@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldes-cou@student.42.fr <ldes-cou>          +#+  +:+       +#+        */
+/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:16:04 by ldes-cou          #+#    #+#             */
-/*   Updated: 2021/05/12 14:19:33 by ldes-cou@st      ###   ########.fr       */
+/*   Updated: 2022/01/21 20:26:53 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str = (char *)malloc(sizeof(*s) * (len + 1));
 	if (!str)
 	{
-		free(str);
+		//free(str);
 		return (NULL);
 	}
-		
 	while (s[i])
 	{
 		if (i >= start && j < len)

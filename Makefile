@@ -33,11 +33,11 @@ OBJECTS_BONUS		:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES_BONUS:.$(SRCEXT
 #Flags, Libraries and Includes
 cflags.release		:= -Wall -Werror -Wextra
 cflags.valgrind		:= -Wall -Werror -Wextra -DDEBUG -ggdb
-cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer
+cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer -g
 CFLAGS				:= $(cflags.$(BUILD))
 CPPFLAGS			:= $(cflags.$(BUILD)) #-std=c++98
 
-lib.release			:=  -L/root/42/cub3D/libft -lft
+lib.release			:=  -L/mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft -lft
 lib.valgrind		:= $(lib.release)
 lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
 LIB					:= $(lib.$(BUILD))
@@ -81,13 +81,13 @@ re: fclean all
 clean:
 	@$(RM) -f *.d *.o
 	@$(RM) -rf $(BUILDDIR)
-	@make $@ -C /root/42/cub3D/libft
+	@make $@ -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
 
 
 # Full Clean, Objects and Binaries
 fclean: clean
 	@$(RM) -rf $(TARGET)
-	@make $@ -C /root/42/cub3D/libft
+	@make $@ -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
 
 
 # Pull in dependency info for *existing* .o files
@@ -120,7 +120,7 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
 
 libft:
-	@make -C /root/42/cub3D/libft
+	@make -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
 
 
 norm:
