@@ -13,6 +13,7 @@ SOURCES		+=                            		\
 		srcs/init.c                          	\
 		srcs/map.c								\
 		srcs/free.c								\
+		srcs/flood_fill.c 						\
 
 
 ## SRCS/DISPLAY ##

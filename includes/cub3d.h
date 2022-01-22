@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/21 19:55:57 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/22 20:25:55 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include "/mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft/libft.h"
 #include <errno.h>
 # define DIRECTIONS "NSEW"
-# define VALID_CHAR "01234NSEW"
+# define VALID_CHAR "01NSEW "
 
 /*KEYS*/
 # define W 119
@@ -60,6 +60,14 @@ typedef struct s_text
 	char *path_we;
 }
 				t_text;
+typedef struct s_play
+{
+	char	orientation;
+	int		x;
+	int		y;
+}
+				t_play;
+
 typedef struct s_win
 {
 
@@ -76,26 +84,16 @@ typedef struct  s_data
 	int		c;
 	int		f;
 	int		infos;
-	char	player;
+	char	**copy;
+	char	**map;
 	char	**file;
 	int		ceiling;
 	int		floor;
+	t_play	play;	
 	t_img	img;
 	t_win	win;
 	t_text	txt;
 }               t_data;
-
-
-typedef struct s_rect
-{
-	int x;
-	int y;
-	int height;
-	int width;
-	int color;
-}				t_rect;
-
-
 
 
 int 	main(int ac, char **av);
@@ -108,9 +106,12 @@ int 	main(int ac, char **av);
 // void	render_background(t_img *img, int color);
 
 /*parsing*/
+void    find_player(t_data *d);
+int		flood_fill(t_data *d, int x, int y);
+char	**copy_map(char **file);
 int		is_cardinal(char *line);
 void	check_map(t_data *d, int i);
-void	check_char(t_data *d, char *line);
+void		check_char(t_data *d, char *line);
 int		check_infos(t_data *d);
 int		open_file(int *fd, int ac, char **argv);
 void	print_map(char **infos);
