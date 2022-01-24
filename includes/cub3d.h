@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/24 16:37:29 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:58:20 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ typedef struct s_win
 typedef struct  s_data 
 {
 	bool	open_map;
-	int		i;
-	int		c;
-	int		f;
-	int		infos;
-	char	**copy;
 	char	**map;
 	char	**file;
 	int		ceiling;
