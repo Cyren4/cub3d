@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:10:18 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/22 20:56:19 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:25:36 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void check_map(t_data *d, int i)
     }
     find_player(d);
     d->copy = copy_map(&d->file[i]);
-    print_map(d->copy);
-    printf("ret %d\n", flood_fill(d, d->play.x, d->play.y));
-    
+    print_map(d->map);
+    flood_fill(d, d->play.x, d->play.y);
+    print_map(d->map);
+    printf("[%i]\n", d->open_map);
 }
 
 void check_char(t_data *d, char *line)
@@ -84,6 +85,8 @@ void    find_player(t_data *d)
         y = 0;
         while(d->map[x][y])
         {
+            if (d->map[x][y] == ' ')
+                d->map[x][y] = '0';
             if (ft_strchr(DIRECTIONS, d->map[x][y]))
             {   
                 d->map[x][y] = '0';

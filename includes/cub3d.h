@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/22 20:25:55 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:07:03 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_play
 typedef struct s_win
 {
 
+	void	*mlx_ptr;
+    void	*win_ptr;
 	int width;
 	int height;
 
@@ -78,8 +80,7 @@ typedef struct s_win
 
 typedef struct  s_data 
 {
-	void	*mlx_ptr;
-    void	*win_ptr;
+	bool	open_map;
 	int		i;
 	int		c;
 	int		f;
@@ -107,7 +108,7 @@ int 	main(int ac, char **av);
 
 /*parsing*/
 void    find_player(t_data *d);
-int		flood_fill(t_data *d, int x, int y);
+void		flood_fill(t_data *d, int x, int y);
 char	**copy_map(char **file);
 int		is_cardinal(char *line);
 void	check_map(t_data *d, int i);
