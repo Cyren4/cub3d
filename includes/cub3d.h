@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/24 14:07:03 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:37:29 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,45 +98,35 @@ typedef struct  s_data
 
 
 int 	main(int ac, char **av);
-/*render*/
+int		get_next_line(int fd, char **line);
 
-// void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-// void	img_pix_put(t_img *img, int x, int y, int color);
-// int		handle_keypress(int keysym, t_data *data);
-// int		display(t_data *data);
-// void	render_background(t_img *img, int color);
-
-/*parsing*/
-void    find_player(t_data *d);
-void		flood_fill(t_data *d, int x, int y);
-char	**copy_map(char **file);
-int		is_cardinal(char *line);
-void	check_map(t_data *d, int i);
-void		check_char(t_data *d, char *line);
-int		check_infos(t_data *d);
+/*get_file*/
 int		open_file(int *fd, int ac, char **argv);
+void	get_file(t_data *d, int fd, int lvl);
+
+/*parser*/
+void 	parse_infos(t_data *data);
+int		check_infos(t_data *d);
+
+/*color*/
+int		get_color(char *line);
+
+/*map*/
+void	check_map(t_data *d, int i);
+void	check_char(t_data *d, char *line);
+void    find_player(t_data *d);
 void	print_map(char **infos);
 void 	init(t_data *d);
-int		get_next_line(int fd, char **line);
-void	get_file(t_data *d, int fd, int lvl);
-int		get_color(char *line);
-int 	ft_parser(char *fichier,int fd);
-void	get_map(t_data *d, int i);
-int		ft_check_map(char *line);
-void 	parse_infos(t_data *data);
-int		check_value(char **rgb);
-int 	get_rgb(int rgb, int r, int g, int b);
 
 
 /*utils*/
+int		is_cardinal(char *line);
 int		is_whitespace(char c);
 int		is_in_array(char **array, char *str);
-void	free_array(char **array);
-char	**build_array(void);
 char	**split_trim(char *line);
 
 /*free*/
-
-void free_exit(t_data *d);
+void	free_array(char **array);
+void	free_exit(t_data *d);
 
 #endif
