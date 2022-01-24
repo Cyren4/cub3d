@@ -1,6 +1,6 @@
 # Generated with GenMake
 # Arthur-TRT - https://github.com/arthur-trt/genMake
-# genmake v1.1.1
+# genmake vv1.1.4
 
 #Compiler and Linker
 CC					:= clang
@@ -33,11 +33,11 @@ OBJECTS_BONUS		:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES_BONUS:.$(SRCEXT
 #Flags, Libraries and Includes
 cflags.release		:= -Wall -Werror -Wextra
 cflags.valgrind		:= -Wall -Werror -Wextra -DDEBUG -ggdb
-cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer -g
+cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer
 CFLAGS				:= $(cflags.$(BUILD))
-CPPFLAGS			:= $(cflags.$(BUILD)) #-std=c++98
+CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
 
-lib.release			:=  -L/mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft -lft
+lib.release			:=  -Llibft -lft
 lib.valgrind		:= $(lib.release)
 lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
 LIB					:= $(lib.$(BUILD))
@@ -68,7 +68,6 @@ all: libft $(TARGETDIR)/$(TARGET)
 
 # Bonus rule
 bonus: CFLAGS += -DBONUS
-bonus: CPPFLAGS += -DBONUS
 bonus: libft $(TARGETDIR)/$(TARGET_BONUS)
 	@$(ERASE)
 	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
@@ -81,13 +80,13 @@ re: fclean all
 clean:
 	@$(RM) -f *.d *.o
 	@$(RM) -rf $(BUILDDIR)
-	@make $@ -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
+	@make $@ -C libft
 
 
 # Full Clean, Objects and Binaries
 fclean: clean
 	@$(RM) -rf $(TARGET)
-	@make $@ -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
+	@make $@ -C libft
 
 
 # Pull in dependency info for *existing* .o files
@@ -110,8 +109,8 @@ $(BUILDIR):
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
 	@$(ECHO) "$(TARGET)\t\t[$(C_PENDING)⏳$(C_RESET)]"
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(INC) -c -o $@ $<
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
 	@$(ERASE)
 	@$(ERASE)
 	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
@@ -120,7 +119,7 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
 
 libft:
-	@make -C /mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft
+	@make -C libft
 
 
 norm:

@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:34:15 by Sophie            #+#    #+#             */
-/*   Updated: 2022/01/24 16:58:20 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/24 17:10:57 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // #include <X11/X.h>
 // #include <X11/keysym.h>
 #include <string.h>
-#include "/mnt/nfs/homes/ldes-cou/42cursus/cub3d/libft/libft.h"
+#include "../libft/libft.h"
 #include <errno.h>
 # define DIRECTIONS "NSEW"
 # define VALID_CHAR "01NSEW "
