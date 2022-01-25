@@ -6,12 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:50:58 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/25 17:25:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:37:25 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 /*
 	clear t_game structure
