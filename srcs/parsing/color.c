@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:00:16 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/21 18:58:44 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:41:13 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int get_color(char *line)
     }
     free_array(rgb);
     if (ft_strnstr(",,", line, ft_strlen(line)))
-        return (1);
+        return (EXIT_FAILURE);
     if (r < 0 || g < 0 || b < 0 || r > 255 || g >255 || b > 255)
-        return (1);
+        return (EXIT_FAILURE);
     return(rgb_to_int(r, g, b));
 }

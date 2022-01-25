@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:30:53 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/24 16:34:50 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:45:25 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,22 @@ void parse_infos(t_data *d)
         if (check_infos(d) == 0)
             break;
     }
+    if (d->ceiling == 1|| d->floor == 1)
+    {
+        printf("Error : wrong color\n");
+        free_exit(d);
+    }
+    printf("[%i]\n", d->ceiling);
+    printf("[%i]\n", d->floor);
     check_map(d, i + 1);
 }
 
 int check_infos(t_data *d)
 {
-    if (d->ceiling == 1 || d->floor == 1)
-        return (1);
+    if (d->ceiling < 2|| d->floor < 2)
+        return (EXIT_FAILURE);
     else if (d->txt.path_we == NULL || d->txt.path_ea == NULL 
         || d->txt.path_no == NULL || d->txt.path_so == NULL)
-        return (1);
-    return (0);
+        return (EXIT_FAILURE);
+    return (EXIT_SUCCESS);
 }

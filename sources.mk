@@ -5,7 +5,6 @@
 SOURCES		+=   srcs/cub3d.c				\
 		srcs/parsing/get_file.c           	\
 		srcs/parsing/parser.c             	\
-		srcs/parsing/main.c               	\
 		srcs/parsing/map.c                	\
 		srcs/parsing/color.c              	\
 		srcs/parsing/utils.c              	\
