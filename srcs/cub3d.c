@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 13:47:51 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/25 13:53:26 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:53:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int main(int ac, char **av)
 	t_data data;
 	
 	if (launch_parse(ac, av, &data))
-		return 1;
-
+		return (1);
+	start_game(&data);
 	free_exit(&data);
 	return (0);
 }

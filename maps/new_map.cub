@@ -1,0 +1,15 @@
+R 720 480
+NO textures/wood.xpm
+SO textures/greystone.xpm
+WE textures/redbrick.xpm
+EA textures/eagle.xpm
+F 75,74,74
+C 1,10,254
+
+  111
+1100011
+110E011
+ 1100011   
+ 1100011
+ 1100011
+   1111
