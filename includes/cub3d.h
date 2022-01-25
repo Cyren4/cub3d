@@ -43,8 +43,7 @@ enum PATH
 
 typedef struct s_img
 {
-
-	void	*mlx_img;
+	void	*img;
 	char	*addr;
 	int		bpp;
 	int		line_len;
@@ -57,24 +56,21 @@ typedef struct s_text
 	char *path_so;
 	char *path_ea;
 	char *path_we;
-}
-				t_text;
+}	t_text;
+
 typedef struct s_play
 {
 	char	orientation;
 	int		x;
 	int		y;
-}
-				t_play;
+}	t_play;
 
 typedef struct s_win
 {
-
 	void	*mlx_ptr;
     void	*win_ptr;
 	int width;
 	int height;
-
 }				t_win;
 
 typedef struct  s_data 
@@ -126,4 +122,5 @@ void	free_exit(t_data *d);
 
 // ---------------- Raycasting ---------------- //
 
+int start_game(t_data *data);
 #endif

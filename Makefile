@@ -11,8 +11,8 @@ ifeq ($(shell uname -s),Darwin)
 endif
 
 #The Target Binary Program
-TARGET				:= cub3D
-TARGET_BONUS		:= cub3D-bonus
+TARGET				:= cub3d
+TARGET_BONUS		:= cub3d-bonus
 
 BUILD				:= release
 
@@ -37,7 +37,7 @@ cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omi
 CFLAGS				:= $(cflags.$(BUILD))
 CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
 
-lib.release			:=  -Llibft -lft
+lib.release			:=  -Llibft -lft -Lminilibx-linux -lmlx -lX11 -lXext
 lib.valgrind		:= $(lib.release)
 lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
 LIB					:= $(lib.$(BUILD))
@@ -61,14 +61,14 @@ GREP				:= grep --color=auto --exclude-dir=.git
 NORMINETTE			:= norminette `ls`
 
 # Default Make
-all: libft $(TARGETDIR)/$(TARGET)
+all: libft minilibx $(TARGETDIR)/$(TARGET)
 	@$(ERASE)
 	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
 
 # Bonus rule
 bonus: CFLAGS += -DBONUS
-bonus: libft $(TARGETDIR)/$(TARGET_BONUS)
+bonus: libft minilibx $(TARGETDIR)/$(TARGET_BONUS)
 	@$(ERASE)
 	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful with bonus! 👌 $(C_RESET)"
@@ -81,6 +81,7 @@ clean:
 	@$(RM) -f *.d *.o
 	@$(RM) -rf $(BUILDDIR)
 	@make $@ -C libft
+	@make $@ -C minilibx-linux
 
 
 # Full Clean, Objects and Binaries
@@ -121,9 +122,12 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 libft:
 	@make -C libft
 
+minilibx:
+	@make -C minilibx-linux
+
 
 norm:
 	@$(NORMINETTE) | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
 
 # Non-File Targets
-.PHONY: all re clean fclean norm bonus libft
+.PHONY: all re clean fclean norm bonus libft minilibx
