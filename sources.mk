@@ -22,6 +22,15 @@ SOURCES		+=                    		\
 		srcs/parsing/utils.c         	\
 		srcs/parsing/free.c          	\
 		srcs/parsing/init.c          	\
+
+
+## SRCS/GAME ##
+SOURCES		+=                    		\
 		srcs/game/start.c          	\
+		srcs/game/finish.c          	\
 
+## SRCS/RENDER ##
+SOURCES		+=                    		\
+		srcs/render/create_img.c          	\
 
+## SRCS/PARSING ##

@@ -120,7 +120,15 @@ char **split_trim(char *line);
 void free_array(char **array);
 void free_exit(t_data *d);
 
-// ---------------- Raycasting ---------------- //
+// ---------------- game ---------------- //
 
 void start_game(t_data *data);
+
+// ---------------- render ---------------- //
+
+unsigned int	get_col(t_img *img, int x, int y);
+int				render_frame(t_data *d);
+
+int	close_g(t_data *d);
+
 #endif
