@@ -6,9 +6,13 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:34:45 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/24 16:35:32 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:29:03 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void    init(t_data *d)
+{
+    d->file = NULL;
+}

@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:44:38 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/24 17:03:17 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:48:20 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void free_exit(t_data *d)
 {
-    if (d->file)
-        free_array(d->file);
+    free_array(d->file);
     ft_memdel(&d->txt.path_so);
     ft_memdel(&d->txt.path_ea);
     ft_memdel(&d->txt.path_no);

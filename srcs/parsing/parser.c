@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:30:53 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/24 16:34:50 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:03:03 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void parse_infos(t_data *d)
         if (check_infos(d) == 0)
             break;
     }
-    check_map(d, i + 1);
+    check_map(d, i + 2);
 }
 
 int check_infos(t_data *d)
 {
-    if (d->ceiling == 1 || d->floor == 1)
+    if (d->ceiling > 1 || d->floor > 1)
         return (1);
     else if (d->txt.path_we == NULL || d->txt.path_ea == NULL 
         || d->txt.path_no == NULL || d->txt.path_so == NULL)
