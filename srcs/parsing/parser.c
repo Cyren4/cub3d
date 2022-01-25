@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:30:53 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/25 14:45:25 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:59:23 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void parse_infos(t_data *d)
         printf("Error : wrong color\n");
         free_exit(d);
     }
-    printf("[%i]\n", d->ceiling);
-    printf("[%i]\n", d->floor);
     check_map(d, i + 1);
 }
 
