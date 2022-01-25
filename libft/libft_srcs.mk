@@ -19,6 +19,7 @@ FILES	=	convert_utils.c \
 			ft_lstlast_bonus.c \
 			ft_lstnew_bonus.c \
 			ft_lstsize_bonus.c \
+			ft_memdel.c \
 			ft_memccpy.c \
 			ft_memchr.c \
 			ft_memcmp.c \

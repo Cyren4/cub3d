@@ -1,79 +1,129 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/06/13 13:33:21 by cramdani          #+#    #+#              #
-#    Updated: 2022/01/09 18:25:42 by cramdani         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Generated with GenMake
+# Arthur-TRT - https://github.com/arthur-trt/genMake
+# genmake vv1.1.4
 
-include cub3D.mk
-
-SRCS_DIR	=	srcs
-OBJS_DIR	=	objs
-INC_DIR		=	includes
-
-SRCS	:=	$(addprefix $(SRCS_DIR)/, $(FILES))
-OBJS 	:=	$(addprefix $(OBJS_DIR)/, $(FILES:.c=.o))
-INCLUDE	:=	$(addprefix $(INC_DIR)/, $(HEADER))
-
-NAME 	=	cub3D
-
-INC		=	-include $(INCLUDE)
-CC		=	gcc
-CFLAGS	= 	-Wall -Wextra -Werror 
-RM		=	rm -rf
-
-OS := $(shell uname -s)
-ifeq ($(OS),Darwin) ## mac 
-	CFLAGS += -D MACOS -fsanitize=address
-	MLX_P	= mlx
-	LFLAGS = -L mlx -lmlx -framework OpenGL -framework AppKit -lz
-endif
-ifeq ($(OS),Linux) ##linux
-	MLX_P	= minilibx-linux
-	LFLAGS	= -lXext -lX11 -lm
+#Compiler and Linker
+CC					:= clang
+CXX					:= c++
+ifeq ($(shell uname -s),Darwin)
+	CC				:= gcc
+	CXX				:= g++
 endif
 
-LIBFT_P	= libft
+#The Target Binary Program
+TARGET				:= cub3D
+TARGET_BONUS		:= cub3D-bonus
 
-LIB			= $(LIBFT_P)/libft.a $(MLX_P)/libmlx.a
+BUILD				:= release
 
-# OBJS	=	${SRCS:.c=.o}
+include sources.mk
 
-all		:	${NAME}
-bonus	: ${NAME_BONUS}	
+#The Directories, Source, Includes, Objects, Binary and Resources
+SRCDIR				:= srcs
+INCDIR				:= includes
+BUILDDIR			:= obj
+TARGETDIR			:= .
+SRCEXT				:= c
+DEPEXT				:= d
+OBJEXT				:= o
 
-$(NAME) : $(OBJS) 
-		make -C $(LIBFT_P)
-		make -C $(MLX_P)
-		$(CC) -o $@ $^ $(LIB) $(LFLAGS) $(CFLAGS)
+OBJECTS				:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+OBJECTS_BONUS		:= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES_BONUS:.$(SRCEXT)=.$(OBJEXT)))
 
-# %.o		:	%.c %.h
-# 			@$(CC) -w $(CFLAGS)  -c  $< $(LIB) 
-			
-$(OBJS_DIR):
-		@mkdir -p $@
-		@mkdir $(addprefix $(OBJS_DIR)/, $(SUB_DIR))
-		@printf "Create object directories : $(GREEN)$(OBJS_DIR)\n$(END)"
-		@printf "Create object subdirectories : $(GREEN)$(SUB_DIR)\n$(END)"
+#Flags, Libraries and Includes
+cflags.release		:= -Wall -Werror -Wextra
+cflags.valgrind		:= -Wall -Werror -Wextra -DDEBUG -ggdb
+cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omit-frame-pointer
+CFLAGS				:= $(cflags.$(BUILD))
+CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
 
-$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | ${OBJS_DIR}
-	    	@$(CC) $(CFLAGS) -c $< -o $@ 
+lib.release			:=  -Llibft -lft
+lib.valgrind		:= $(lib.release)
+lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
+LIB					:= $(lib.$(BUILD))
 
-clean	:
-		$(RM) $(OBJS_DIR) 
-		make fclean -C $(LIBFT_P)
-		make clean -C $(MLX_P) 
-		@printf "$(RED)Cleaning is done!\n$(END)"
+INC					:= -I$(INCDIR) -I/usr/local/include
+INCDEP				:= -I$(INCDIR)
 
-fclean	:	clean
-			$(RM) $(NAME)
-			@printf "$(YELLOW)FCleaning is done!\n$(END)"
+# Colors
+C_RESET				:= \033[0m
+C_PENDING			:= \033[0;36m
+C_SUCCESS			:= \033[0;32m
 
-re		:	fclean all
+# Multi platforms
+ECHO				:= echo
 
-.PHONY	:	all clean fclean re
+# Escape sequences (ANSI/VT100)
+ES_ERASE			:= "\033[1A\033[2K\033[1A"
+ERASE				:= $(ECHO) $(ES_ERASE)
+
+GREP				:= grep --color=auto --exclude-dir=.git
+NORMINETTE			:= norminette `ls`
+
+# Default Make
+all: libft $(TARGETDIR)/$(TARGET)
+	@$(ERASE)
+	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
+	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
+
+# Bonus rule
+bonus: CFLAGS += -DBONUS
+bonus: libft $(TARGETDIR)/$(TARGET_BONUS)
+	@$(ERASE)
+	@$(ECHO) "$(TARGET)\t\t[$(C_SUCCESS)✅$(C_RESET)]"
+	@$(ECHO) "$(C_SUCCESS)All done, compilation successful with bonus! 👌 $(C_RESET)"
+
+# Remake
+re: fclean all
+
+# Clean only Objects
+clean:
+	@$(RM) -f *.d *.o
+	@$(RM) -rf $(BUILDDIR)
+	@make $@ -C libft
+
+
+# Full Clean, Objects and Binaries
+fclean: clean
+	@$(RM) -rf $(TARGET)
+	@make $@ -C libft
+
+
+# Pull in dependency info for *existing* .o files
+-include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
+
+# Link
+$(TARGETDIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(TARGETDIR)
+	$(CC) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+
+# Link Bonus
+$(TARGETDIR)/$(TARGET_BONUS): $(OBJECTS_BONUS)
+	@mkdir -p $(TARGETDIR)
+	$(CC) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+
+$(BUILDIR):
+	@mkdir -p $@
+
+# Compile
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	@$(ECHO) "$(TARGET)\t\t[$(C_PENDING)⏳$(C_RESET)]"
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	@$(ERASE)
+	@$(ERASE)
+	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
+	@sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
+	@sed -e 's/.*://' -e 's/\\$$//' < $(BUILDDIR)/$*.$(DEPEXT).tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(BUILDDIR)/$*.$(DEPEXT)
+	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
+
+libft:
+	@make -C libft
+
+
+norm:
+	@$(NORMINETTE) | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
+
+# Non-File Targets
+.PHONY: all re clean fclean norm bonus libft

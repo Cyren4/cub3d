@@ -6,92 +6,77 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 12:57:36 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/20 17:02:22 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:56:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#define BUFFER_SIZE 1
 
-char	*cur_line(char *old)
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 32
+# endif
+
+char	*stock_str(char *buf, char *str)
 {
-	int		i;
-	char	*str;
+	char *tmp;
 
-	i = 0;
-	while (old[i] && old[i] != '\n')
-		i++;
-	str = malloc(sizeof(char) * (i + 1));
 	if (!str)
-		return (NULL);
-	i = 0;
-	while (old[i] && old[i] != '\n')
+		str = ft_strdup(buf);
+	else
 	{
-		str[i] = old[i];
-		i++;
+		tmp = str;
+		str = ft_strjoin(str, buf);
+		free(tmp);
 	}
-	str[i] = '\0';
 	return (str);
 }
 
-char	*next_line(char *old)
+char	*stock_line(char *str, char **line)
 {
+	char	*tmp;
 	int		i;
-	int		j;
-	char	*str;
 
 	i = 0;
-	while (old[i] && old[i] != '\n')
+	while (str[i] && str[i] != '\n')
 		i++;
-	if (!old[i])
+	if (i < (int)ft_strlen(str))
 	{
-		free(old);
-		return (NULL);
+		tmp = str;
+		*line = ft_substr(str, 0, i);
+		str = ft_substr(str, i + 1, ft_strlen(str));
+		free(tmp);
 	}
-	str = malloc(sizeof(char) * (ft_strlen(old) - i + 1));
-	if (!str)
-		return (NULL);
-	j = 0;
-	while (old[++i])
+	else
 	{
-		str[j] = old[i];
-		i++;
-		j++;
+		*line = str;
+		str = NULL;
 	}
-	str[j] = '\0';
-	free(old);
 	return (str);
 }
 
-char	*new_join(char *old, char *buf)
+int		get_next_line(int fd, char **line)
 {
-	char	*new;
+	static char *str;
+	char		buf[BUFF_SIZE + 1];
+	int			i;
 
-	new = ft_strjoin(old, buf);
-	free(old);
-	return (new);
-}
-
-int	get_next_line(int fd, char **line)
-{
-	static char	*old;
-	char		buf[BUFFER_SIZE + 1];
-	int			r;
-
-	*buf = 0;
-	r = 1;
-	if (!line)
+	if ((BUFF_SIZE < 1 || fd < 0 || !line || read(fd, buf, 0) < 0))
 		return (-1);
-	*line = NULL;
-	while (buf[0] != '\n' && r > 0)
+	while ((i = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		r = read(fd, buf, BUFFER_SIZE);
-		if (r == -1)
-			return (-1);
-		buf[r] = '\0';
-		old = new_join(old, buf);
+		buf[i] = '\0';
+		str = stock_str(buf, str);
+		if (ft_strchr(str, '\n'))
+			break ;
 	}
-	*line = cur_line(old);
-	old = next_line(old);
-	return (r != 0);
+	if (!str)
+	{
+		*line = ft_strdup("");
+		return (0);
+	}
+	if (str)
+		str = stock_line(str, line);
+	if (str == NULL)
+		return (0);
+	return (1);
 }

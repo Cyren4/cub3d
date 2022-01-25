@@ -1,16 +1,19 @@
 
-FILES	=	main.c \
-			check_map.c \
-			error.c \
-			map_utils.c \
-			game_utils.c \
-			moveP.c \
-			render.c \
-			start.c
+FILES	+=  	\
+			parsing/get_file.c           	\
+			parsing/parser.c             	\
+			parsing/main.c               	\
+			parsing/map.c                	\
+			parsing/color.c              	\
+			parsing/get_next_line.c      	\
+			parsing/utils.c              	\
+			parsing/free.c               	\
+			parsing/init.c               	\
 
-SUB_DIR = parsing cub_utils execution
 
-HEADER		= so_long.h move.h texture.h
+SUB_DIR = parsing raycasting
+
+HEADER		= cub3d.h move.h
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m
