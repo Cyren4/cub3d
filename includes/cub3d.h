@@ -30,6 +30,8 @@
 /*	macro	*/
 #define DIRECTIONS "NSEW"
 #define VALID_CHAR "01NSEW "
+#define SIZE_X 1000
+#define SIZE_Y 700
 
 enum PATH
 {
