@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:51:56 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/25 16:57:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:11:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ unsigned int	get_col(t_img *img, int x, int y)
 /*
 	draws textures at (x,y)	in img
 */
-// void	my_mlx_pixel_put(t_data *img, int x, int y, t_data *text)
+// void	my_mlx_pixel_put(t_data *d, int x, int y)
 // {
 // 	char	*dst;
 // 	int		xm;
 // 	int		ym;
 
-// 	text->addr = mlx_get_data_addr(text->img, &text->bits_pixel,
+// 	text->img.addr = mlx_get_data_addr(text->img, &text->bits_pixel,
 // 			&text->line_l, &text->endian);
 // 	ym = y;
 // 	while (ym < y + IMG_SIZE)
@@ -47,6 +47,37 @@ unsigned int	get_col(t_img *img, int x, int y)
 // 		ym++;
 // 	}
 // }
+
+int	render_map2D(t_data *d)
+{
+	char	*dst;
+	int		x = 0;
+	int		y = 0;
+	
+	d->img.addr = mlx_get_data_addr(d->img.addr, &d->img.bpp,
+			&d->img.line_len, &d->img.endian);
+			
+	while (y < SIZE_Y){
+		x = 0;
+		while (x < SIZE_X){
+			dst = d->img.addr + (y * d->img.line_len + x * (d->img.bpp / 8));
+			*(unsigned int *)dst = rgb_to_int(255, 255, 255);
+			x++;
+		}
+		y++;
+	}
+	// while (y < d->n_line)
+	// {
+	// 	x = 0;
+	// 	while (x < d->map[y])
+	// 	{
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	mlx_put_image_to_window(d->win.mlx_ptr, d->win.win_ptr, d->img.img, 0, 0);
+	return (1);
+}
 
 /*
 	renders each frame

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:44:38 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/26 13:45:45 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:09:55 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void free_exit(t_data *d)
     ft_memdel(&d->txt.path_ea);
     ft_memdel(&d->txt.path_no);
     ft_memdel(&d->txt.path_we);
+    free(d->txt.text);
     exit(EXIT_FAILURE);
 }
 

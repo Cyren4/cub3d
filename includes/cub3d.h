@@ -25,7 +25,6 @@
 
 /*	KEYS	*/
 #include "move.h"
-// #include "so_long.h"
 
 /*	macro	*/
 #define DIRECTIONS "NSEW"
@@ -58,13 +57,19 @@ typedef struct s_text
 	char	*path_so;
 	char	*path_ea;
 	char	*path_we;
+	t_img	*text;
 } t_text;
 
 typedef struct s_play
 {
 	char	orientation;
-	int		x;
-	int		y;
+	double		x;
+	double		y;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+
 } t_play;
 
 typedef struct s_win
@@ -127,10 +132,14 @@ void	free_exit(t_data *d);
 
 void start_game(t_data *data);
 
+// ---------------- move ---------------- //
+int	key_hook(int keycode, t_data *d);
+
 // ---------------- render ---------------- //
 
 unsigned int	get_col(t_img *img, int x, int y);
 int				render_frame(t_data *d);
+int			rgb_to_int(int r, int g, int b);
 
 int	close_g(t_data *d);
 

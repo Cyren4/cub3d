@@ -11,8 +11,8 @@ ifeq ($(shell uname -s),Darwin)
 endif
 
 #The Target Binary Program
-TARGET				:= cub3d
-TARGET_BONUS		:= cub3d-bonus
+TARGET				:= cub3D
+TARGET_BONUS		:= cub3D-bonus
 
 BUILD				:= release
 
@@ -37,11 +37,13 @@ cflags.debug		:= -Wall -Werror -Wextra -DDEBUG -ggdb -fsanitize=address -fno-omi
 CFLAGS				:= $(cflags.$(BUILD))
 CPPFLAGS			:= $(cflags.$(BUILD)) -std=c++98
 
-lib.release			:=  -Llibft -lft 
 ifeq ($(shell uname -s),Darwin)
-	lib.release		+=	-Lmlx -lmlx -framework OpenGL -framework AppKit -lz
+	CFLAGS +=  -D MACOS
+	lib.release		+= -Llibft -lft -Lmlx -lmlx  -framework OpenGL -framework AppKit -lz
+	MLX 			= mlx
 else
 	lib.release		+=	-Lminilibx-linux -lmlx -lXext -lX11 -lm
+	MLX 			=   -Llibft -lft minilibx-linux
 endif
 lib.valgrind		:= $(lib.release)
 lib.debug			:= $(lib.release) -fsanitize=address -fno-omit-frame-pointer
@@ -86,7 +88,7 @@ clean:
 	@$(RM) -f *.d *.o
 	@$(RM) -rf $(BUILDDIR)
 	@make $@ -C libft
-	@make $@ -C minilibx-linux
+	@make $@ -C $(MLX) 
 
 
 # Full Clean, Objects and Binaries
@@ -128,7 +130,7 @@ libft:
 	@make -C libft
 
 minilibx:
-	@make -C minilibx-linux
+	@make -C $(MLX) 
 
 
 norm:

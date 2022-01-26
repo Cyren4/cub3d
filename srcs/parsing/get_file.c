@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 09:57:17 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/26 11:34:25 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/26 22:37:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int open_file(int *fd, int ac, char **argv)
         printf("Error: program takes one argument, a map with a .cub extension");
         exit (1);
     }
-    *fd = open(argv[1], __O_DIRECTORY);
-    if (*fd != -1)
-    {
-        printf("Error: file is a directory");
-        exit(1);
-    }
+    // *fd = open(argv[1], __O_DIRECTORY);
+    // if (*fd != -1)
+    // {
+    //     printf("Error: file is a directory");
+    //     exit(1);
+    // }
     *fd = open(argv[1], O_RDONLY);
     if (*fd < 0)
     {

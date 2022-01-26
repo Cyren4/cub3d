@@ -6,22 +6,13 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:50:58 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/25 17:37:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:08:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-	clear t_game structure
-*/
-// void	clear_g(t_game *g)
-// {
-// 	free(g->mlx);
-// 	clear_map(g->map);
-// 	free(g->text);
-// 	free(g);
-// }
+
 
 /*
 	closes the game properly
@@ -40,6 +31,7 @@ int	close_g(t_data *d)
 		mlx_destroy_image(d->win.mlx_ptr, d->img.img);
 		// mlx_destroy_display(d->win.mlx_ptr); // voir pq pas trouve
 	}
+	free(d->win.mlx_ptr);
 	free_exit(d);
 	exit(EXIT_SUCCESS);
 	return (0);
