@@ -1,6 +1,6 @@
-NO textures/wood.xpm
-SO textures/greystone.xpm
-WE textures/redbrick.xpm
-EA textures/eagle.xpm
+NO content/textures/barrel.xpm
+SO content/textures/bluestone.xpm
+WE content/textures/redbrick.xpm
+EA content/textures/door.xpm
 F 75,74,74
 C 10,10,254

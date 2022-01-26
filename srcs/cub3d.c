@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 13:47:51 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/25 17:01:31 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:19:04 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	launch_parse(int ac, char **av, t_data *data)
 	fd = 0;
 	i = 0;
 	open_file(&fd, ac, av);
-	ft_memset(data, 0, sizeof(data));
+	init(data);
 	get_file(data, fd, 0);
 	parse_infos(data);
 	close(fd); // stocker le fd dans la struct pour le close des qu'on rencontre une erreur

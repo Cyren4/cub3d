@@ -77,6 +77,7 @@ typedef struct s_win
 
 typedef struct s_data
 {
+	int		n_line;
 	bool	open_map;
 	char	**map;
 	char	**file;
@@ -106,19 +107,21 @@ int		get_color(char *line);
 /*map*/
 void	check_map(t_data *d, int i);
 void	check_char(t_data *d, char *line);
-void	find_player(t_data *d);
+int 	find_player(t_data *d);
 void	print_map(char **infos);
 void	init(t_data *d);
 
 /*utils*/
-int is_cardinal(char *line);
-int is_whitespace(char c);
-int is_in_array(char **array, char *str);
-char **split_trim(char *line);
+
+void	exit_error(char *error, t_data *d);
+int		is_cardinal(char *line);
+int		is_whitespace(char c);
+int 	is_in_array(char **array, char *str);
+char 	**split_trim(char *line);
 
 /*free*/
-void free_array(char **array);
-void free_exit(t_data *d);
+void	free_array(char **array);
+void	free_exit(t_data *d);
 
 // ---------------- game ---------------- //
 

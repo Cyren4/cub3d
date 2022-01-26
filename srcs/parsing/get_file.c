@@ -6,7 +6,7 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 09:57:17 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/21 20:06:56 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:34:25 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	check_format(char *str, char *ext)
 	while (*str != '.')
 		str++;
 	if (ft_strcmp(str, ext) == 0)
-		return (0);
-	return (1);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 int open_file(int *fd, int ac, char **argv)
@@ -26,7 +26,7 @@ int open_file(int *fd, int ac, char **argv)
     
     if (ac != 2 || check_format(argv[1], ".cub"))
     {
-        printf("Error: program takes only one argument, a map with a .cub extension");
+        printf("Error: program takes one argument, a map with a .cub extension");
         exit (1);
     }
     *fd = open(argv[1], __O_DIRECTORY);

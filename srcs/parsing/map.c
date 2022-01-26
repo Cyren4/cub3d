@@ -6,37 +6,67 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:10:18 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/25 14:28:43 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:19:22 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void print_map(char **infos)
+int check_adjacent(char **map, int x, int y, int line)
 {
-	int i = 0;
-	
-	while (infos[i])
-    {
-        printf("%d - %s\n", i, infos[i]);
-        i++;
-    }
+    if (x < 1 || y < 1 || x >= (line))
+        return (EXIT_FAILURE);
+    if (is_whitespace(map[x + 1][y]) || is_whitespace(map[x - 1][y]))
+        return(EXIT_FAILURE);
+    if (is_whitespace(map[x][y + 1]) || is_whitespace(map[x][y - 1]))
+        return (EXIT_FAILURE);
+    return(EXIT_SUCCESS);
 }
+
+bool is_map_open(char **map, int line)
+{
+    int x;
+    int y;
+    
+    x = 0;
+    y = 0;
+    while(map && map[x])
+    {
+        y = 0;
+        while (map[x][y])
+        {
+            if (map[x][y] == '0')
+            {
+                if (check_adjacent(map, x , y, line) == EXIT_FAILURE)
+                    return (true);
+            }
+            y++;
+        }
+        x++;
+    }
+    return(false);
+}
+
 
 void check_map(t_data *d, int i)
 {
-    
+    int n_player;
+
+    n_player = 0;
     d->map = &d->file[i];
+    print_map(d->map);
     if (d->map == NULL)
         free_exit(d);
-    print_map(d->map);
     while(d->file && d->file[i])
     {
         check_char(d, d->file[i]);
         i++;
     }
-    find_player(d);
-    print_map(d->map);
+    n_player = find_player(d);
+    if (n_player != 1)
+        exit_error("Error: Not the right number of player", d);
+    if (is_map_open(d->map, d->n_line) == true)
+        exit_error("Error: Map is open", d);
 }
 
 void check_char(t_data *d, char *line)
@@ -47,10 +77,7 @@ void check_char(t_data *d, char *line)
     while (line[i])
     {     
         if (!ft_strchr(VALID_CHAR, line[i]))
-        {
-            printf("there's a forgiven character\n");
-            free_exit(d);
-        }
+            exit_error("Error: forbidden character", d);
         i++;
     }
 }
@@ -58,38 +85,33 @@ void check_char(t_data *d, char *line)
  * @brief find player and stock it
  * (and replace spaces by 0)
  * 
- * @param
+ * @param 
  */
-void    find_player(t_data *d)
+int    find_player(t_data *d)
 {
-    int player;
+    int n_player;
     int x;
     int y;
     
     x = 0;
     y = 0;
-    player = 0;
+    n_player = 0;
     while(d->map[x])
     {
         y = 0;
         while(d->map[x][y])
         {
-            if (d->map[x][y] == ' ')
-                d->map[x][y] = '0';
             if (ft_strchr(DIRECTIONS, d->map[x][y]))
             {   
                 d->map[x][y] = '0';
                 d->play.x = x;
                 d->play.y = y;
-                player++;
+                n_player++;
             }
             y++;
         }
         x++;
     }
-    if (player != 1)
-    {
-        printf("Program require one player, with his orientation\n");
-        free_exit(d);
-    }
+    d->n_line = x;
+    return (n_player);
 }

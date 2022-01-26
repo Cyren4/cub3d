@@ -6,13 +6,34 @@
 /*   By: ldes-cou <ldes-cou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:40:08 by ldes-cou          #+#    #+#             */
-/*   Updated: 2022/01/24 16:33:01 by ldes-cou         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:36:52 by ldes-cou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/**
+ * @brief print an error, free all and exit
+ * 
+ * @param error 
+ * @param d 
+ */
+void	exit_error(char *error, t_data *d)
+{
+	printf("%s\n", error);
+	free_exit(d);
+}
 
+void print_map(char **infos)
+{
+	int i = 0;
+	
+	while (infos[i])
+    {
+        printf("%d - %s\n", i, infos[i]);
+        i++;
+    }
+}
 
 int is_cardinal(char *line)
 {
@@ -40,7 +61,6 @@ int is_whitespace(char c)
         return(1);
     return(0);
 }
-
 
 char **split_trim(char *line)
 {
