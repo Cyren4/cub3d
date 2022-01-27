@@ -85,6 +85,7 @@ typedef struct s_data
 	int		n_line;
 	bool	open_map;
 	char	**map;
+	int		sq_size;
 	char	**file;
 	int		ceiling;
 	int		floor;
@@ -137,9 +138,20 @@ int	key_hook(int keycode, t_data *d);
 
 // ---------------- render ---------------- //
 
-unsigned int	get_col(t_img *img, int x, int y);
+/*	game_rendering.c	*/
 int				render_frame(t_data *d);
-int			rgb_to_int(int r, int g, int b);
+
+/*	render_map.c	*/
+int				get_square(t_data *d);
+void			render_map(t_data *d);
+
+/*	render_utils.c	*/
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			my_mlx_image_put(t_data *d, int x, int y, t_img *text);
+unsigned int	get_col(t_img *img, int x, int y);
+
+/*	color.c	*/
+int				rgb_to_int(int r, int g, int b);
 
 int	close_g(t_data *d);
 

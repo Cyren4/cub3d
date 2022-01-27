@@ -9,8 +9,10 @@ SOURCES		+=                     		\
 ## SRCS/RENDER ##
 
 SOURCES		+=                     		\
-		srcs/render/create_img.c      	\
-
+		srcs/render/game_rendering.c      	\
+		srcs/render/render_map.c      	\
+		srcs/render/render_utils.c      	\
+		srcs/render/color.c          	\
 
 ## SRCS/GAME ##
 
@@ -31,6 +33,3 @@ SOURCES		+=                     		\
 		srcs/parsing/get_file.c       	\
 		srcs/parsing/map.c            	\
 		srcs/parsing/parser.c         	\
-		srcs/parsing/color.c          	\
-
-

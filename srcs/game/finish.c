@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:50:58 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/27 00:08:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:20:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	close_g(t_data *d)
 		if (d->win.win_ptr)
 			mlx_destroy_window(d->win.mlx_ptr, d->win.win_ptr);
 		mlx_destroy_image(d->win.mlx_ptr, d->img.img);
+		while (i++ < 4)
+			mlx_destroy_image(d->win.mlx_ptr, d->txt.text[i].img);
 		// mlx_destroy_display(d->win.mlx_ptr); // voir pq pas trouve
 	}
 	free(d->win.mlx_ptr);

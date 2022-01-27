@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 15:35:55 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/27 00:16:10 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:48:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ t_img	*init_text(t_data *d)//add test if a mlx_xpm_file_to_image + if malloc fai
 	return text;
 }
 
+
+
+
+
+
+
+
+
 /*
 	calls init_game
 	creates image and gets it's adress
@@ -61,25 +69,12 @@ void start_game(t_data *data)
 									   data->win.height, "cub3D");
 	data->img.img = mlx_new_image(data->win.mlx_ptr, data->win.width, data->win.height);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.line_len, &data->img.endian);
-	data->txt.text = init_text(data);
+	data->sq_size = get_square(data);
 	init_player(data);
-	// play_game(data);
-	char	*dst;
-	int		x = 0;
-	int		y = 0;
-	
-	// d->img.addr = mlx_get_data_addr(d->img.addr, &d->img.bpp,
-	// 		&d->img.line_len, &d->img.endian);
-			
-	mlx_loop(data->win.mlx_ptr);
-	while (y < SIZE_Y){
-		x = 0;
-		while (x < SIZE_X){
-			dst = data->img.addr + (y * data->img.line_len + x * (data->img.bpp / 8));
-			*(unsigned int *)dst = rgb_to_int(255, 255, 255);
-			x++;
-		}
-		y++;
-	}
+	data->txt.text = init_text(data);
+	render_map(data);
 	mlx_put_image_to_window(data->win.mlx_ptr, data->win.win_ptr, data->img.img, 0, 0);
+	mlx_loop(data->win.mlx_ptr);
+	play_game(data);
+	
 }
