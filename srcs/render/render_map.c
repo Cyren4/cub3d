@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 11:23:40 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/27 13:14:24 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:27:30 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ void	render_map(t_data* d){
 		}
 		y++;
 	}
-	render_player(d, d->play.x, d->play.y, 0xEB2332);
+	render_player(d, d->play.y, d->play.x, 0xEB2332);
 }
