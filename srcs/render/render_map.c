@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 11:23:40 by cramdani          #+#    #+#             */
-/*   Updated: 2022/01/27 11:41:29 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:14:24 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,32 @@ void	empty_sq(t_data* d, int x, int y, int color){
 	}
 }
 
+int	in_circle(double x, double y, double diam){
+	double	xyc;
+
+	xyc = diam / 2;
+	return (sqrt((pow(xyc - x, 2) + pow(xyc - y, 2))) < diam/2);
+}
+
+void	render_player(t_data* d, int x, int y, int color){
+	int xm;
+	int ym;
+
+	ym = 0;
+	while (ym < d->sq_size)	
+	{
+		xm = 0;
+		while (xm < d->sq_size)	
+		{
+			if (in_circle(xm, ym, d->sq_size))
+				my_mlx_pixel_put(d, x * d->sq_size + xm, y * d->sq_size + ym, color);
+			xm++;
+		}
+		ym++;
+	}
+}
+
+
 void	render_map(t_data* d){
 	int x;
 	int y;
@@ -84,5 +110,5 @@ void	render_map(t_data* d){
 		}
 		y++;
 	}
-	// render_player(d);
+	render_player(d, d->play.x, d->play.y, 0xEB2332);
 }
